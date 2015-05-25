@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Un4seen.Bass;
+using Un4seen.Bass.AddOn.Fx;
+
+namespace pulse.Client.Audio
+{
+    static class AudioManager
+    {
+        private static bool _initialised;
+
+        public static void Initialise()
+        {
+            if (_initialised) return;
+
+            BassNet.Registration("tm939@gre.ac.uk", "2X18221315153720");
+            Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+            BassFx.LoadMe();
+
+            _initialised = true;
+        }
+
+        public static Sound LoadSound(string path)
+        {
+            Initialise();
+
+            if (!File.Exists(path))
+            {
+                return null;
+            }
+
+            int handle = Bass.BASS_StreamCreateFile(path, 0, 0,
+                BASSFlag.BASS_STREAM_DECODE | BASSFlag.BASS_MUSIC_PRESCAN);
+
+            handle = BassFx.BASS_FX_TempoCreate(handle, BASSFlag.BASS_MUSIC_PRESCAN);
+
+            if (handle == 0)
+            {
+                return null;
+            }
+
+            return new Sound(handle);
+        }
+    }
+}
