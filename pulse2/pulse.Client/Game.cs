@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using pulse.Client.Audio;
@@ -16,10 +18,17 @@ namespace pulse.Client
 {
     class Game : GameWindow
     {
+        private readonly PulseConfig _config;
+        private readonly ScreenManager _screenManager;
         private GameScreen _gameScreen;
-        public Game() : base(1024, 768, GraphicsMode.Default, "pulse", GameWindowFlags.Default)
+
+        public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
+            config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
-            this.VSync = VSyncMode.Off;
+            _config = config;
+            VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
+
+            _screenManager = ScreenManager.Resolve(title => Title = title);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -33,7 +42,6 @@ namespace pulse.Client
             GL.ClearColor(Color4.SlateGray);
 
             _gameScreen = new GameScreen();
-
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

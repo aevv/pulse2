@@ -13,7 +13,10 @@ namespace pulse.Client.Screens
 {
     abstract class BaseScreen
     {
+        protected string _name;
         protected readonly List<Renderable> _renderables;
+
+        public string Name { get { return _name; } }
 
         public BaseScreen()
         {

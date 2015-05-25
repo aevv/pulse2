@@ -11,7 +11,10 @@ namespace pulse.Client.Audio
 {
     static class AudioManager
     {
+        private static readonly Dictionary<string, Sound> _audios = new Dictionary<string, Sound>(); 
         private static bool _initialised;
+
+        public static int Frequency { get; set; }
 
         public static void Initialise()
         {
@@ -28,6 +31,9 @@ namespace pulse.Client.Audio
         {
             Initialise();
 
+            if (_audios.ContainsKey(path))
+                return _audios[path];
+
             if (!File.Exists(path))
             {
                 return null;
@@ -43,7 +49,18 @@ namespace pulse.Client.Audio
                 return null;
             }
 
-            return new Sound(handle);
+            var sound = new Sound(handle, path);
+            _audios.Add(path, sound);
+            return sound;
+        }
+
+        public static void Unload(string path)
+        {
+            if (!_audios.ContainsKey(path)) 
+                return;
+
+            _audios[path].Dispose();
+            _audios.Remove(path);
         }
     }
 }

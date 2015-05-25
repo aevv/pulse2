@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pulse.Configuration;
 
 namespace pulse.Client
 {
@@ -10,7 +11,8 @@ namespace pulse.Client
     {
         static void Main(string[] args)
         {
-            new Game().Run(120, 120);
+            var config = new ConfigLoader<PulseConfig>("config.ini").Load();
+            new Game(config).Run(120, 120);
         }
     }
 }

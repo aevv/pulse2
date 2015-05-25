@@ -23,9 +23,11 @@ namespace pulse.Client.Screens
             _quad2.Texture = _quad.Texture;
             _renderables.Add(_quad);
             _renderables.Add(_quad2);
+
+            _name = "Game Screen";
         }
 
-        private double _velocity = 50;
+        private double _velocity = 500;
 
         public override void OnUpdateFrame(FrameEventArgs e)
         {
