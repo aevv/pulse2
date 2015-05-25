@@ -27,7 +27,6 @@ namespace pulse.Client.Screens
         public BaseScreen this[string name]
         {
             get { return _screens.First(s => s.Name == name); }
-            set { _activeScreen = _screens.First(s => s.Name == name); }
         }
 
         public void Add(BaseScreen screen)
@@ -60,6 +59,17 @@ namespace pulse.Client.Screens
                 _activeScreen = value;
                 _titleSetter(_activeScreen.Name);
             }
+        }
+
+        public void SetActive(string name)
+        {
+            var screen = _screens.FirstOrDefault(s => s.Name == name);
+
+            if (screen == null)
+                return;
+
+            _activeScreen = screen;
+            _titleSetter(_activeScreen.Name);
         }
     }
 }

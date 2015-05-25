@@ -42,6 +42,7 @@ namespace pulse.Client
             GL.ClearColor(Color4.SlateGray);
 
             _gameScreen = new GameScreen();
+            _screenManager.Active = _gameScreen;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -62,7 +63,7 @@ namespace pulse.Client
             GL.PushMatrix();
             GL.LoadMatrix(ref ortho);
 
-            _gameScreen.OnRenderFrame(e);
+            _screenManager.Active.OnRenderFrame(e);
 
             GL.PopMatrix();
             SwapBuffers();
