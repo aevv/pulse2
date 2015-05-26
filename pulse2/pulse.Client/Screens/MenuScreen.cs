@@ -15,28 +15,29 @@ namespace pulse.Client.Screens
     {
         private Quad _bg;
         private Button _button;
-        private ScreenManager screenManager;
+        private ScreenManager _screenManager;
 
         public MenuScreen()
         {
             _bg = new Quad(0, 0, 1024, 768);
-            _bg.Texture = TextureManager.LoadImage("Assets\\bg.jpg");
+            _bg.ApplyTexture("Assets\\bg.jpg");
+            _button = new Button(300, 300, 300, 100);
+            _button.ApplyTexture("Assets\\bg.jpg");
+            Renderables.Add(_bg);
 
             _button = new Button(300, 300, 300, 100);
-            _button.Texture = TextureManager.LoadImage("Assets\\bg.jpg");
-            _button.ClickEvent = () => { Play(); };
+            _button.ApplyTexture("Assets\\bg.jpg");
+            _button.ClickEvent = Play;
+            Renderables.Add(_button);
 
-            _renderables.Add(_bg);
-            _renderables.Add(_button);
+            Name = "Menu Screen";
 
-            _name = "Menu Screen";
-
-            screenManager = ScreenManager.Resolve(null);
+            _screenManager = ScreenManager.Resolve();
         }
 
-        public void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse)
+        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse)
         {
-            base.OnUpdateFrame(e);
+            base.OnUpdateFrame(e, mouse);
 
             if (_button.Boundaries.Contains(mouse.X, mouse.Y))
             {
@@ -46,12 +47,11 @@ namespace pulse.Client.Screens
                     _button.Click();
                 }
             }
-
         }
 
         private void Play()
         {
-            screenManager.SetActive("Game Screen");
+            _screenManager.SetActive("Game Screen");
         }
     }
 }

@@ -20,8 +20,7 @@ namespace pulse.Client
     {
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
-        private GameScreen _gameScreen;
-        private MenuScreen _menuScreen;
+
         private int mouseX;
         private int mouseY;
 
@@ -31,7 +30,8 @@ namespace pulse.Client
             _config = config;
             VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
 
-            _screenManager = ScreenManager.Resolve(title => Title = title);
+            _screenManager = ScreenManager.Resolve();
+            _screenManager.TitleSetter = title => Title = title;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -43,17 +43,15 @@ namespace pulse.Client
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
             GL.ClearColor(Color4.SlateGray);
-
-            _gameScreen = new GameScreen();
-            _menuScreen = new MenuScreen();
-            _screenManager.Active = _menuScreen;
+            
+            LoadScreens();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
 
-            _menuScreen.OnUpdateFrame(e, Mouse);
+            _screenManager.Active.OnUpdateFrame(e, Mouse);
 
             mouseX = Mouse.X;
             mouseY = Mouse.Y;
@@ -74,6 +72,12 @@ namespace pulse.Client
 
             GL.PopMatrix();
             SwapBuffers();
+        }
+
+        private void LoadScreens()
+        {
+            _screenManager.Add(new GameScreen());
+            _screenManager.Active = new MenuScreen();
         }
     }
 }

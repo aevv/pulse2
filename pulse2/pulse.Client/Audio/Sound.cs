@@ -90,6 +90,9 @@ namespace pulse.Client.Audio
 
         public void Play()
         {
+            if (!Paused && !Stopped)
+                return;
+
             Bass.BASS_ChannelPlay(_handle, false);
             Paused = false;
             Stopped = false;
@@ -97,6 +100,9 @@ namespace pulse.Client.Audio
 
         public void Stop()
         {
+            if (Stopped)
+                return;
+
             Bass.BASS_ChannelStop(_handle);
             Stopped = true;
             Paused = false;
@@ -104,6 +110,9 @@ namespace pulse.Client.Audio
 
         public void Pause()
         {
+            if (!Stopped && Paused)
+                return;
+
             Bass.BASS_ChannelPause(_handle);
             Stopped = false;
             Paused = true;
