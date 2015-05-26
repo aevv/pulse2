@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using pulse.Client.Graphics;
 
 namespace pulse.Client.Screens
@@ -15,6 +16,7 @@ namespace pulse.Client.Screens
     {
         protected string _name;
         protected readonly List<Renderable> _renderables;
+        protected MouseState _mouse = Mouse.GetState(0);
 
         public string Name { get { return _name; } }
 

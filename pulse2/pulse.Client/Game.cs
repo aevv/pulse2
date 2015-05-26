@@ -21,6 +21,9 @@ namespace pulse.Client
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
         private GameScreen _gameScreen;
+        private MenuScreen _menuScreen;
+        private int mouseX;
+        private int mouseY;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -42,14 +45,18 @@ namespace pulse.Client
             GL.ClearColor(Color4.SlateGray);
 
             _gameScreen = new GameScreen();
-            _screenManager.Active = _gameScreen;
+            _menuScreen = new MenuScreen();
+            _screenManager.Active = _menuScreen;
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
 
-            _gameScreen.OnUpdateFrame(e);
+            _menuScreen.OnUpdateFrame(e, Mouse);
+
+            mouseX = Mouse.X;
+            mouseY = Mouse.Y;
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
