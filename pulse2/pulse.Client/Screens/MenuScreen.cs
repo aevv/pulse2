@@ -20,12 +20,12 @@ namespace pulse.Client.Screens
         public MenuScreen()
         {
             _bg = new Quad(0, 0, 1024, 768);
-            _bg.Texture = TextureManager.LoadImage("Assets\\bg.jpg");
+            _bg.ApplyTexture("Assets\\bg.jpg");
             _button = new Quad(300, 300, 300, 100);
-            _button.Texture = TextureManager.LoadImage("Assets\\bg.jpg");
-            _renderables.Add(_bg);
+            _button.ApplyTexture("Assets\\bg.jpg");
+            Renderables.Add(_bg);
 
-            _name = "Menu Screen";
+            Name = "Menu Screen";
         }
 
         private double _velocity = 500;

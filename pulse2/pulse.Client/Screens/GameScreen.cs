@@ -18,13 +18,13 @@ namespace pulse.Client.Screens
         public GameScreen()
         {
             _quad = new Quad(0, 0, 1024, 768);
-            _quad.Texture = TextureManager.LoadImage("Assets\\bg.jpg");
+            _quad.ApplyTexture("Assets\\bg.jpg");
             _quad2 = new Quad(0, 0, 50, 50);
-            _quad2.Texture = _quad.Texture;
-            _renderables.Add(_quad);
-            _renderables.Add(_quad2);
+            _quad2.ApplyTexture(_quad.TextureId);
+            Renderables.Add(_quad);
+            Renderables.Add(_quad2);
 
-            _name = "Game Screen";
+            Name = "Game Screen";
         }
 
         private double _velocity = 500;

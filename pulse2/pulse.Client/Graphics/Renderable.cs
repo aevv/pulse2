@@ -8,22 +8,43 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using pulse.Client.Graphics.Interface;
 
 namespace pulse.Client.Graphics
 {
-    abstract class Renderable
+    abstract class Renderable : IRenderable, ITexturable
     {
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
-        public int Texture { get; set; }
+        public int TextureId { get; private set; }
+        public string TexturePath { get; private set; }
         public float Rotation { get; set; }
         public PointF DrawOffset { get; set; }
         public Color4 Colour { get; set; }
 
-        public Renderable()
+        protected Renderable()
         {
-            Texture = -1;
+            TextureId = -1;
             Colour = Color4.White;
+        }
+
+        public void ApplyTexture(string path)
+        {
+            var textureId = TextureManager.LoadImage(path);
+            if (textureId == -1)
+                return;
+            
+            TextureId = textureId;
+            TexturePath = path;
+        }
+
+        public void ApplyTexture(int textureId)
+        {
+            if (textureId < 0)
+                return;
+            // This could go very badly.
+            TextureId = textureId;
+            TexturePath = string.Empty;
         }
 
         public void OnRenderFrame(FrameEventArgs e)
@@ -32,11 +53,11 @@ namespace pulse.Client.Graphics
 
             GL.Color4(Colour);
 
-            if (Texture == -1)
+            if (TextureId == -1)
             {
                 GL.Disable(EnableCap.Texture2D);
 
-                GL.Begin(BeginMode.Quads);
+                GL.Begin(PrimitiveType.Quads);
                 GL.Color4(Color4.White);
                 GL.Vertex2(Location.X, Location.Y);
                 GL.Vertex2(Location.X + Size.Width, Location.Y);
@@ -49,8 +70,10 @@ namespace pulse.Client.Graphics
 
             else
             {
-                GL.BindTexture(TextureTarget.Texture2D, Texture);
-                GL.Begin(BeginMode.Quads);
+                // TODO: Apply draw offset to draw parts of texture sheets
+                // TODO: Optimise texture rebinding?
+                GL.BindTexture(TextureTarget.Texture2D, TextureId);
+                GL.Begin(PrimitiveType.Quads);
 
                 GL.TexCoord2(0, 0);
                 GL.Vertex2(Location.X, Location.Y);

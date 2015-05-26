@@ -9,18 +9,19 @@ namespace pulse.Client.Screens
     class ScreenManager
     {
         private static ScreenManager _instance;
-        private readonly Action<string> _titleSetter;
+        private Action<string> _titleSetter;
         private readonly IList<BaseScreen> _screens;
         private BaseScreen _activeScreen;
 
-        public static ScreenManager Resolve(Action<string> titleSetter)
+        public Action<string> TitleSetter { set { _titleSetter = value; } }
+
+        public static ScreenManager Resolve()
         {
-            return _instance ?? (_instance = new ScreenManager(titleSetter));
+            return _instance ?? (_instance = new ScreenManager());
         }
 
-        private ScreenManager(Action<string> titleSetter)
+        private ScreenManager()
         {
-            _titleSetter = titleSetter;
             _screens = new List<BaseScreen>();
         }
 
@@ -57,7 +58,8 @@ namespace pulse.Client.Screens
                     _screens.Add(value);
 
                 _activeScreen = value;
-                _titleSetter(_activeScreen.Name);
+                if (_titleSetter != null)
+                    _titleSetter(_activeScreen.Title);
             }
         }
 
@@ -69,7 +71,8 @@ namespace pulse.Client.Screens
                 return;
 
             _activeScreen = screen;
-            _titleSetter(_activeScreen.Name);
+            if (_titleSetter != null)
+                _titleSetter(_activeScreen.Title);
         }
     }
 }
