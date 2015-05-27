@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
@@ -17,7 +18,7 @@ namespace pulse.Client.Screens
         private Button _button;
         private ScreenManager _screenManager;
 
-        public MenuScreen()
+        public MenuScreen(InputHandler inputHandler) : base(inputHandler)
         {
             _bg = new Quad(0, 0, 1024, 768);
             _bg.ApplyTexture("Assets\\bg.jpg");
@@ -35,22 +36,13 @@ namespace pulse.Client.Screens
             _screenManager = ScreenManager.Resolve();
         }
 
-        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse, KeyboardDevice keyboard)
+        public override void OnUpdateFrame(FrameEventArgs e)
         {
-            base.OnUpdateFrame(e, mouse, keyboard);
+            base.OnUpdateFrame(e);
 
-            if (_button.Boundaries.Contains(mouse.X, mouse.Y))
+            if (_button.CanClick(InputChecker.Cursor) && InputChecker.LeftClick)
             {
-                if (Input.Input.MouseRelease(OpenTK.Input.MouseButton.Left))
-                {
-                    Console.WriteLine("Click");
-                    _button.Click();
-                }
-            }
-
-            if (Input.Input.KeyPress(Key.D))
-            {
-                Console.WriteLine("D");
+                _button.Click();
             }
 
             if (Input.Input.KeyPress(keyboard.KeyDown))

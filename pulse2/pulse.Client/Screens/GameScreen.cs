@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Input;
 using pulse.Client.Graphics;
+using pulse.Client.Input;
+
 namespace pulse.Client.Screens
 {
     class GameScreen : BaseScreen
@@ -16,7 +18,7 @@ namespace pulse.Client.Screens
 
         private double _timeTotal = 0;
 
-        public GameScreen()
+        public GameScreen(InputHandler inputHandler) : base(inputHandler)
         {
             _quad = new Quad(0, 0, 1024, 768);
             _quad.ApplyTexture("Assets\\bg.jpg");
@@ -30,9 +32,9 @@ namespace pulse.Client.Screens
 
         private double _velocity = 500;
 
-        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse, KeyboardDevice keyboard)
+        public override void OnUpdateFrame(FrameEventArgs e)
         {
-            base.OnUpdateFrame(e, mouse, keyboard);
+            base.OnUpdateFrame(e);
 
             var x = _quad2.Location.X + (_velocity*e.Time);
 

@@ -28,8 +28,7 @@ namespace pulse.Client.Input
             game.MouseUp += game_MouseUp;
         }
 
-        private static void game_KeyUp(object sender, KeyboardKeyEventArgs e)
-        {
+        private static void game_KeyUp(object sender, KeyboardKeyEventArgs e) {
             while (keysDown.Contains(e.Key))
                 keysDown.Remove(e.Key);
         }
@@ -48,6 +47,7 @@ namespace pulse.Client.Input
         static void game_KeyDown(object sender, KeyboardKeyEventArgs e)
         {
             keysDown.Add(e.Key);
+            Console.WriteLine(DateTime.Now.Ticks + e.Key.ToString());
         }
 
         public static void Update()
@@ -60,8 +60,13 @@ namespace pulse.Client.Input
         {
             var current = keysDown.Contains(k);
             var previous = !keysDownLast.Contains(k);
-
+            if (current)
+            {
+                if(keysDown == keysDownLast)
+                    Console.WriteLine("SadFace"); 
+            }
             return current && previous;
+            //return (keysDown.Contains(k) && !keysDownLast.Contains(k));
         }
         public static bool KeyRelease(Key k)
         {

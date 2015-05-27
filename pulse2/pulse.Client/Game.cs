@@ -14,6 +14,7 @@ using pulse.Client.Audio;
 using pulse.Client.Graphics;
 using pulse.Client.Screens;
 using pulse.Client.Input;
+using pulse.Client.Songs;
 
 namespace pulse.Client
 {
@@ -21,6 +22,7 @@ namespace pulse.Client
     {
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
+        private readonly InputHandler _inputHandler;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -31,7 +33,7 @@ namespace pulse.Client
             _screenManager = ScreenManager.Resolve();
             _screenManager.TitleSetter = title => Title = title;
 
-            Input.Input.Initialise(this);
+            _inputHandler = new InputHandler(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -50,11 +52,10 @@ namespace pulse.Client
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-
             
-            _screenManager.Active.OnUpdateFrame(e, Mouse, Keyboard);
+            _screenManager.Active.OnUpdateFrame(e);
 
-            Input.Input.Update();
+            _inputHandler.SwapBuffers();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -76,8 +77,8 @@ namespace pulse.Client
 
         private void LoadScreens()
         {
-            _screenManager.Add(new GameScreen());
-            _screenManager.Active = new MenuScreen();
+            _screenManager.Add(new GameScreen(_inputHandler));
+            _screenManager.Active = new MenuScreen(_inputHandler);
         }
     }
 }
