@@ -64,7 +64,7 @@ namespace pulse.Client.Input
             if (current)
             {
                 if(keysDown == keysDownLast)
-                    Console.WriteLine("SadFace");
+                    Console.WriteLine("SadFace"); 
             }
             return current && previous;
             //return (keysDown.Contains(k) && !keysDownLast.Contains(k));

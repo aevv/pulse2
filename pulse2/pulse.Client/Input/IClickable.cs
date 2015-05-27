@@ -9,7 +9,7 @@ namespace pulse.Client.Input
 {
     interface IClickable
     {
-        Rectangle Boundaries { get; set; }
+        RectangleF Boundaries { get; set; }
 
         void Click();
     }
