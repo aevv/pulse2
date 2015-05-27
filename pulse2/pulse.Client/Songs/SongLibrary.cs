@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,21 @@ namespace pulse.Client.Songs
 
         public void Load(string directory)
         {
-            
+            var dir = new DirectoryInfo(directory);
+
+            if (!dir.Exists)
+                dir.Create();
+
+            ProcessSongDirectory(dir);
+        }
+
+        private void ProcessSongDirectory(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+            {
+                ProcessSongDirectory(dir);
+            }
+
         }
     }
 }
