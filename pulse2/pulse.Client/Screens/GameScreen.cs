@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Input;
 using pulse.Client.Graphics;
+using pulse.Client.Input;
+
 namespace pulse.Client.Screens
 {
     class GameScreen : BaseScreen
@@ -15,7 +18,7 @@ namespace pulse.Client.Screens
 
         private double _timeTotal = 0;
 
-        public GameScreen()
+        public GameScreen(InputHandler inputHandler) : base(inputHandler)
         {
             _quad = new Quad(0, 0, 1024, 768);
             _quad.ApplyTexture("Assets\\bg.jpg");

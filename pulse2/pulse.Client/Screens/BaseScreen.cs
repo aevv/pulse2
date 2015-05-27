@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using pulse.Client.Graphics;
+using pulse.Client.Input;
+using pulse.Client.Input.Interface;
 
 namespace pulse.Client.Screens
 {
@@ -16,6 +19,11 @@ namespace pulse.Client.Screens
         private string _name;
         private string _title;
         private readonly List<Renderable> _renderables;
+        private KeyboardState current, previous;
+
+        private readonly InputHandler _inputHandler;
+
+        protected IInputChecker InputChecker { get { return _inputHandler; }}
 
         public string Name
         {
@@ -30,8 +38,9 @@ namespace pulse.Client.Screens
             get { return _renderables; }
         } 
 
-        public BaseScreen()
+        public BaseScreen(InputHandler inputHandler)
         {
+            _inputHandler = inputHandler;
             _renderables = new List<Renderable>();
         }
 
