@@ -21,9 +21,6 @@ namespace pulse.Client
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
 
-        private int mouseX;
-        private int mouseY;
-
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
@@ -51,10 +48,7 @@ namespace pulse.Client
         {
             base.OnUpdateFrame(e);
 
-            _screenManager.Active.OnUpdateFrame(e, Mouse);
-
-            mouseX = Mouse.X;
-            mouseY = Mouse.Y;
+            _screenManager.Active.OnUpdateFrame(e, Mouse, Keyboard);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

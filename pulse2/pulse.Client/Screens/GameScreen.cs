@@ -30,9 +30,9 @@ namespace pulse.Client.Screens
 
         private double _velocity = 500;
 
-        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse)
+        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse, KeyboardDevice keyboard)
         {
-            base.OnUpdateFrame(e, mouse);
+            base.OnUpdateFrame(e, mouse, keyboard);
 
             var x = _quad2.Location.X + (_velocity*e.Time);
 

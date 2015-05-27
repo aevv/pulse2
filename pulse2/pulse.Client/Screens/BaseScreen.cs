@@ -44,7 +44,7 @@ namespace pulse.Client.Screens
             }
         }
 
-        public virtual void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse)
+        public virtual void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse, KeyboardDevice keyboard)
         {
         }
     }

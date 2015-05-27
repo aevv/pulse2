@@ -35,9 +35,9 @@ namespace pulse.Client.Screens
             _screenManager = ScreenManager.Resolve();
         }
 
-        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse)
+        public override void OnUpdateFrame(FrameEventArgs e, MouseDevice mouse, KeyboardDevice keyboard)
         {
-            base.OnUpdateFrame(e, mouse);
+            base.OnUpdateFrame(e, mouse, keyboard);
 
             if (_button.Boundaries.Contains(mouse.X, mouse.Y))
             {
