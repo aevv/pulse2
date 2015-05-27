@@ -59,6 +59,7 @@
     <Compile Include="Graphics\Quad.cs" />
     <Compile Include="Graphics\Renderable.cs" />
     <Compile Include="Graphics\TextureManager.cs" />
+    <Compile Include="Input\Input.cs" />
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\MediaPlayer.cs" />
     <Compile Include="Input\Button.cs" />

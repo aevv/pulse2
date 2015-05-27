@@ -13,6 +13,7 @@ using OpenTK.Graphics.OpenGL;
 using pulse.Client.Audio;
 using pulse.Client.Graphics;
 using pulse.Client.Screens;
+using pulse.Client.Input;
 
 namespace pulse.Client
 {
@@ -29,6 +30,8 @@ namespace pulse.Client
 
             _screenManager = ScreenManager.Resolve();
             _screenManager.TitleSetter = title => Title = title;
+
+            Input.Input.Initialise(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -48,7 +51,10 @@ namespace pulse.Client
         {
             base.OnUpdateFrame(e);
 
+            
             _screenManager.Active.OnUpdateFrame(e, Mouse, Keyboard);
+
+            Input.Input.Update();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

@@ -41,11 +41,16 @@ namespace pulse.Client.Screens
 
             if (_button.Boundaries.Contains(mouse.X, mouse.Y))
             {
-                if (mouse[MouseButton.Left])
+                if (Input.Input.MouseRelease(OpenTK.Input.MouseButton.Left))
                 {
                     Console.WriteLine("Click");
                     _button.Click();
                 }
+            }
+
+            if (Input.Input.KeyPress(Key.D))
+            {
+                Console.WriteLine("D");
             }
         }
 
