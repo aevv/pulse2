@@ -28,8 +28,7 @@ namespace pulse.Client.Input
             game.MouseUp += game_MouseUp;
         }
 
-        private static void game_KeyUp(object sender, KeyboardKeyEventArgs e)
-        {
+        private static void game_KeyUp(object sender, KeyboardKeyEventArgs e) {
             while (keysDown.Contains(e.Key))
                 keysDown.Remove(e.Key);
         }

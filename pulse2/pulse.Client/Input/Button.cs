@@ -17,6 +17,16 @@ namespace pulse.Client.Input
             Boundaries = new RectangleF(x, y, width, height);
         }
 
+        public bool CanClick(float x, float y)
+        {
+            return CanClick(new PointF(x, y));
+        }
+
+        public bool CanClick(PointF point)
+        {
+            return Boundaries.Contains(point);
+        }
+
         public void Click()
         {
             _clickEvent();

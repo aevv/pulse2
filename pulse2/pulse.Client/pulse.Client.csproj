@@ -60,6 +60,10 @@
     <Compile Include="Graphics\Renderable.cs" />
     <Compile Include="Graphics\TextureManager.cs" />
     <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\InputHandler.cs" />
+    <Compile Include="Input\Interface\IInputChecker.cs" />
+    <Compile Include="Input\States\KeyboardState.cs" />
+    <Compile Include="Input\States\MouseState.cs" />
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\MediaPlayer.cs" />
     <Compile Include="Input\Button.cs" />
