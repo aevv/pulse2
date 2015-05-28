@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Media;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK;
-using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using pulse.Client.Audio;
-using pulse.Client.Graphics;
 using pulse.Client.Screens;
 using pulse.Client.Input;
-using pulse.Client.Songs;
 
 namespace pulse.Client
 {
@@ -78,7 +68,7 @@ namespace pulse.Client
         private void LoadScreens()
         {
             _screenManager.Add(new GameScreen(_inputHandler));
-            _screenManager.Active = new MenuScreen(_inputHandler, new SizeF(this.Width, this.Height));
+            _screenManager.Active = new MenuScreen(_inputHandler, new SizeF(Width, Height));
             
         }
     }
