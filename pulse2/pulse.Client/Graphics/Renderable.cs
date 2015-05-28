@@ -47,7 +47,7 @@ namespace pulse.Client.Graphics
             TexturePath = string.Empty;
         }
 
-        public void OnRenderFrame(FrameEventArgs e)
+        public virtual void OnRenderFrame(FrameEventArgs e)
         {
             GL.PushMatrix();
 

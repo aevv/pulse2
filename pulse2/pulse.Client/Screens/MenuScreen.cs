@@ -27,26 +27,24 @@ namespace pulse.Client.Screens
             _bg = new Background("Assets\\bg.jpg", screenSize);
             Renderables.Add(_bg);
 
-            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50);
-            _btnPlay.ApplyTexture("Assets\\play.png");
+            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50, "Play");
+            _btnPlay.ApplyTexture("Assets\\button.png");
             _btnPlay.ClickEvent = Play;
             Renderables.Add(_btnPlay);
 
-            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50);
-            _btnOptions.ApplyTexture("Assets\\options.png");
+            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50,"Options");
+            _btnOptions.ApplyTexture("Assets\\button.png");
             _btnOptions.ClickEvent = Options;
             Renderables.Add(_btnOptions);
 
-            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50);
-            _btnQuit.ApplyTexture("Assets\\exit.png");
+            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50, "Quit");
+            _btnQuit.ApplyTexture("Assets\\button.png");
             _btnQuit.ClickEvent = Quit;
             Renderables.Add(_btnQuit);
 
             Name = "Menu Screen";
 
             _screenManager = ScreenManager.Resolve();
-
-            _text = new RawText("Hello world!", new PointF(0, 0), true);
         }
 
         public override void OnUpdateFrame(FrameEventArgs e)
@@ -85,7 +83,6 @@ namespace pulse.Client.Screens
         {
             base.OnRenderFrame(e);
 
-            _text.OnRenderFrame(e);
         }
 
         private void Play()
