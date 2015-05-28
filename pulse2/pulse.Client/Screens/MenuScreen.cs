@@ -40,7 +40,7 @@ namespace pulse.Client.Screens
         {
             base.OnUpdateFrame(e);
 
-            if (_button.CanClick(InputChecker.Cursor) && InputChecker.LeftClick)
+            if (_button.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
             {
                 _button.Click();
             }

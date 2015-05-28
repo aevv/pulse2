@@ -17,12 +17,12 @@ namespace pulse.Client.Input
             Boundaries = new RectangleF(x, y, width, height);
         }
 
-        public bool CanClick(float x, float y)
+        public bool IsMouseOver(float x, float y)
         {
-            return CanClick(new PointF(x, y));
+            return IsMouseOver(new PointF(x, y));
         }
 
-        public bool CanClick(PointF point)
+        public bool IsMouseOver(PointF point)
         {
             return Boundaries.Contains(point);
         }
