@@ -1,6 +1,9 @@
 ﻿namespace pulse.Client.Songs
 {
-    class Song
+    public class Song
     {
+        public string FileName { get; set; }
+        public string SongName { get; set; }
+        public string Artist { get; set; }
     }
 }

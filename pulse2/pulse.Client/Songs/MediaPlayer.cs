@@ -12,32 +12,6 @@ namespace pulse.Client.Songs
         private static MediaPlayer _instance;
         private static object _sync = new object();
 
-        public PointF Location { get; set; }
-        public SizeF Size { get; set; }
-        public float Rotation { get; set; }
-        public Color4 Colour { get; set; }
-
-        public bool AutoPlay { get; set; }
-
-        private Sound _currentSound;
-
-        public Sound CurrentSound
-        {
-            get { return _currentSound; }
-            set
-            {
-                _currentSound.Stop();
-
-                if (value == null)
-                    return;
-
-                _currentSound = value;
-                
-                if (AutoPlay)
-                    _currentSound.Play();
-            }
-        }
-
         public static MediaPlayer Instance
         {
             get
@@ -51,21 +25,60 @@ namespace pulse.Client.Songs
         {
             Colour = Color4.White;
             AutoPlay = true;
+            _library = SongLibrary.Instance;
+        }
+
+        public PointF Location { get; set; }
+        public SizeF Size { get; set; }
+        public float Rotation { get; set; }
+        public Color4 Colour { get; set; }
+
+        public bool AutoPlay { get; set; }
+
+        private Sound _currentSound;
+        private SongLibrary _library;
+
+        public Sound CurrentSound
+        {
+            get { return _currentSound; }
+            set
+            {
+                if (_currentSound != null)
+                    _currentSound.Stop();
+
+                if (value == null)
+                    return;
+
+                _currentSound = value;
+                
+                if (AutoPlay)
+                    _currentSound.Play();
+            }
         }
 
         public void Play()
         {
-            _currentSound.Play();
+            if (_currentSound != null)
+                _currentSound.Play();
         }
 
         public void Pause()
         {
-            _currentSound.Pause();
+            if (_currentSound != null)
+                _currentSound.Pause();
         }
 
         public void Stop()
         {
-            _currentSound.Stop();
+            if (_currentSound != null)
+                _currentSound.Stop();
+        }
+
+        public void PlayRandom()
+        {
+            _currentSound = _library.GetRandomSong();
+            if (_currentSound != null)
+                _currentSound.Play();
         }
 
         public void OnRenderFrame(FrameEventArgs args)
