@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
-using OpenTK.Platform.Windows;
 using pulse.Client.Graphics;
 
 namespace pulse.Client.Input
