@@ -1,9 +1,5 @@
-﻿using System;
+﻿using pulse.Client.Songs.Mechanics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using pulse.Client.Songs.Mechanics;
 
 namespace pulse.Client.Songs
 {
@@ -24,7 +20,7 @@ namespace pulse.Client.Songs
         public List<Bookmark> Bookmarks { get; private set; } 
 
         public Chart()
-        {
+    {
             Notes = new List<Note>();
             TimingSections = new List<TimingSection>();
             Bookmarks = new List<Bookmark>();

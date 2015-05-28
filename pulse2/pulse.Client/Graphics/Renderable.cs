@@ -1,14 +1,8 @@
-﻿    using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using pulse.Client.Graphics.Interface;
+﻿    using System.Drawing;
+    using OpenTK;
+    using OpenTK.Graphics;
+    using OpenTK.Graphics.OpenGL;
+    using pulse.Client.Graphics.Interface;
 
 namespace pulse.Client.Graphics
 {
@@ -47,7 +41,7 @@ namespace pulse.Client.Graphics
             TexturePath = string.Empty;
         }
 
-        public void OnRenderFrame(FrameEventArgs e)
+        public virtual void OnRenderFrame(FrameEventArgs e)
         {
             GL.PushMatrix();
 
