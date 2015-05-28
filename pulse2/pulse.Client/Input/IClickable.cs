@@ -11,7 +11,7 @@ namespace pulse.Client.Input
     {
         RectangleF Boundaries { get; set; }
 
-        bool CanClick(float x, float y);
+        bool IsMouseOver(float x, float y);
 
         void Click();
     }

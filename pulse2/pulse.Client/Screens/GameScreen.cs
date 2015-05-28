@@ -39,6 +39,7 @@ namespace pulse.Client.Screens
             var x = _quad2.Location.X + (_velocity*e.Time);
 
             _quad2.Location = new PointF((float)x, _quad2.Location.Y);
+
         }
     }
 }

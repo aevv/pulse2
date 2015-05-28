@@ -78,7 +78,8 @@ namespace pulse.Client
         private void LoadScreens()
         {
             _screenManager.Add(new GameScreen(_inputHandler));
-            _screenManager.Active = new MenuScreen(_inputHandler);
+            _screenManager.Active = new MenuScreen(_inputHandler, new SizeF(this.Width, this.Height));
+            
         }
     }
 }

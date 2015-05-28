@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -20,6 +21,7 @@ namespace pulse.Client.Screens
         private string _title;
         private readonly List<Renderable> _renderables;
         private KeyboardState current, previous;
+        private SizeF ScreenSize { get; set; }
 
         private readonly InputHandler _inputHandler;
 
@@ -42,6 +44,13 @@ namespace pulse.Client.Screens
         {
             _inputHandler = inputHandler;
             _renderables = new List<Renderable>();
+        }
+
+        public BaseScreen(InputHandler inputHandler, SizeF screenSize)
+        {
+            _inputHandler = inputHandler;
+            _renderables = new List<Renderable>();
+            ScreenSize = screenSize;
         }
 
         public virtual void OnRenderFrame(FrameEventArgs e)

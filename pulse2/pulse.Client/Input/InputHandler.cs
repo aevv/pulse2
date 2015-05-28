@@ -70,6 +70,10 @@ namespace pulse.Client.Input
 
         public bool LeftClick { get { return _mouseState.Click(MouseButton.Left); } }
 
+        public bool RightClick { get { return _mouseState.Click(MouseButton.Right); } }
+
+        public bool MidClick { get { return _mouseState.Click(MouseButton.Middle); } }
+        
         public bool KeyPress(Key key)
         {
             return _keyboardState.KeyPress(key);
