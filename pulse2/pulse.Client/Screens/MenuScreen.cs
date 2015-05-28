@@ -3,6 +3,7 @@ using System.Drawing;
 using OpenTK;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Songs;
 
 namespace pulse.Client.Screens
 {
@@ -38,6 +39,8 @@ namespace pulse.Client.Screens
             Name = "Menu Screen";
 
             _screenManager = ScreenManager.Resolve();
+
+            MediaPlayer.Instance.PlayRandom();
         }
 
         public override void OnUpdateFrame(FrameEventArgs e)
@@ -81,6 +84,7 @@ namespace pulse.Client.Screens
         private void Play()
         {
             _screenManager.SetActive("Game Screen");
+            MediaPlayer.Instance.Play();
         }
 
         private void Options()

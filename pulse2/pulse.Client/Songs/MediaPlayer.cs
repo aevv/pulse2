@@ -12,6 +12,22 @@ namespace pulse.Client.Songs
         private static MediaPlayer _instance;
         private static object _sync = new object();
 
+        public static MediaPlayer Instance
+        {
+            get
+            {
+                lock (_sync)
+                    return _instance ?? (_instance = new MediaPlayer());
+            }
+        }
+
+        private MediaPlayer()
+        {
+            Colour = Color4.White;
+            AutoPlay = true;
+            _library = SongLibrary.Instance;
+        }
+
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
@@ -20,6 +36,7 @@ namespace pulse.Client.Songs
         public bool AutoPlay { get; set; }
 
         private Sound _currentSound;
+        private SongLibrary _library;
 
         public Sound CurrentSound
         {
@@ -38,21 +55,6 @@ namespace pulse.Client.Songs
             }
         }
 
-        public static MediaPlayer Instance
-        {
-            get
-            {
-                lock (_sync)
-                    return _instance ?? (_instance = new MediaPlayer());
-            }
-        }
-
-        private MediaPlayer()
-        {
-            Colour = Color4.White;
-            AutoPlay = true;
-        }
-
         public void Play()
         {
             _currentSound.Play();
@@ -66,6 +68,12 @@ namespace pulse.Client.Songs
         public void Stop()
         {
             _currentSound.Stop();
+        }
+
+        public void PlayRandom()
+        {
+            _currentSound = _library.GetRandomSong();
+            _currentSound.Play();
         }
 
         public void OnRenderFrame(FrameEventArgs args)

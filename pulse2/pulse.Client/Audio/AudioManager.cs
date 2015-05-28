@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Un4seen.Bass;
@@ -24,6 +25,21 @@ namespace pulse.Client.Audio
             BassFx.LoadMe();
 
             _initialised = true;
+        }
+
+        public static Sound LoadSound(byte[] audioBytes)
+        {
+            Initialise();
+
+            var file = GCHandle.Alloc(audioBytes, GCHandleType.Pinned);
+
+            int handle = Bass.BASS_StreamCreateFile(file.AddrOfPinnedObject(), 0, audioBytes.Length,
+               BASSFlag.BASS_MUSIC_PRESCAN | BASSFlag.BASS_MUSIC_DECODE);
+            Bass.BASS_StreamPutData(handle, audioBytes, audioBytes.Length);
+
+            handle = BassFx.BASS_FX_TempoCreate(handle, BASSFlag.BASS_MUSIC_PRESCAN);
+
+            return new Sound(handle, "");
         }
 
         public static Sound LoadSound(string path)

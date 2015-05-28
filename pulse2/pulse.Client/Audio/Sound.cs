@@ -18,7 +18,8 @@ namespace pulse.Client.Audio
         {
             _handle = handle;
             _path = path;
-            _volume = 1.0f;
+            Volume = 0.5f;
+            Stopped = true;
         }
 
         public float Frequency
