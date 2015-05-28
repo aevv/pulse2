@@ -17,6 +17,7 @@ namespace pulse.Client.Songs
 
         public double LeadInTime { get; set; }
         public string BackgroundName { get; set; }
+        public double Preview { get; set; }
 
         public List<Note> Notes { get; private set; }
         public List<TimingSection> TimingSections { get; private set; }

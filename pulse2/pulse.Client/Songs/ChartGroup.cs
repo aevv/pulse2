@@ -12,13 +12,6 @@ namespace pulse.Client.Songs
     /// </summary>
     public class ChartGroup
     {
-        public string GroupFileName
-        {
-            get
-            {
-                return string.Format("{0}\\{1}.pcg", FolderPath, FolderName);
-            }
-        }
 
         public string FolderName
         {

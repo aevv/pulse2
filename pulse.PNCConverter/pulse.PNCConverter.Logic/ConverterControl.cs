@@ -21,14 +21,14 @@ namespace pulse.PNCConverter.Logic
             var directoryInfo = new DirectoryInfo(directory);
             var songDirs = directoryInfo.GetDirectories();
 
-            var groups = songDirs.Select(ProcessSongDir);
+            var groups = songDirs.Select(ProcessSongDir).Where(g => g != null);
 
             foreach (var group in groups)
             {
                 var serialised = JsonConvert.SerializeObject(group);
                 var bytes = Encoding.UTF8.GetBytes(serialised);
                 var compressed = Compress(bytes);
-                File.WriteAllBytes(group.GroupFileName, compressed);
+                File.WriteAllBytes(string.Format("C:\\PCG\\{0}.pcg", group.FolderName) , compressed);
             }
         }
 
@@ -39,13 +39,22 @@ namespace pulse.PNCConverter.Logic
             var chartGroup = new ChartGroup();
             chartGroup.FolderPath = dir.FullName;
 
+            Console.WriteLine("Process group: {0}", chartGroup.FolderPath);
+
             foreach (var file in files)
             {
                 if (file.Extension == ".pnc")
-                    chartGroup.Charts.Add(ProcessPnc(file));
+                {
+                    var chart = ProcessPnc(file);
+                    if (chart != null)
+                        chartGroup.Charts.Add(ProcessPnc(file));
+                }
                 else
                     chartGroup.Files.Add(PackFile(file));
             }
+
+            if (!chartGroup.Charts.Any())
+                return null;
 
             return chartGroup;
         }
@@ -63,6 +72,9 @@ namespace pulse.PNCConverter.Logic
         {
             var chart = new Chart();
             var pncContents = File.ReadAllLines(pnc.FullName);
+
+            if (pncContents[0] != "pncv1")
+                return null;
 
             bool inTiming = false;
             bool inObjects = false;
@@ -111,10 +123,10 @@ namespace pulse.PNCConverter.Logic
                     chart.Difficulty = kvp[1];
                     break;
                 case "leadin":
-                    chart.LeadInTime = Convert.ToInt32(kvp[1]);
+                    chart.LeadInTime = Convert.ToDouble(kvp[1], _culture);
                     break;
                 case "preview":
-                    chart.LeadInTime = Convert.ToInt32(kvp[1]);
+                    chart.Preview = Convert.ToDouble(kvp[1], _culture);
                     break;
                 case "creator":
                     chart.Creator = kvp[1];
@@ -125,6 +137,9 @@ namespace pulse.PNCConverter.Logic
         private void ProcessObject(Chart chart, string line)
         {
             var keys = line.Split(',');
+
+            if (keys[0] != "n")
+                return;
 
             var offset = Convert.ToDouble(keys[1], _culture);
             var lane = Convert.ToInt32(keys[2], _culture);
