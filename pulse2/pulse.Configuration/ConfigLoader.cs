@@ -10,12 +10,28 @@ namespace pulse.Configuration
 {
     public class ConfigLoader<T> where T : new()
     {
+        private static ConfigLoader<T> _instance;
+        private static object _sync = new object();
+
+        public static ConfigLoader<T> Resolve(string path)
+        {
+            lock (_sync)
+            {
+                return _instance ?? (_instance = new ConfigLoader<T>(path));
+            }
+        }
+
+        public static T Instance
+        {
+            get { return _instance.Load(); }
+        } 
+
         private readonly Dictionary<string, PropertyInfo> _configMaps;
         private readonly string _path;
         private bool _loaded;
         private readonly T _config;
 
-        public ConfigLoader(string path)
+        private ConfigLoader(string path)
         {
             _configMaps = new Dictionary<string, PropertyInfo>();
             _config = new T();

@@ -58,6 +58,7 @@
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
     <Compile Include="Graphics\Quad.cs" />
+    <Compile Include="Graphics\RawText.cs" />
     <Compile Include="Graphics\Renderable.cs" />
     <Compile Include="Graphics\TextureManager.cs" />
     <Compile Include="Input\Input.cs" />
