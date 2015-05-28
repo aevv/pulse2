@@ -3,8 +3,8 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-using pulse.Client.Screens;
 using pulse.Client.Input;
+using pulse.Client.Screens;
 
 namespace pulse.Client
 {
