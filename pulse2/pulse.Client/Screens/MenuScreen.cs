@@ -45,7 +45,6 @@ namespace pulse.Client.Screens
                 _button.Click();
             }
 
-            if (Input.Input.KeyPress(keyboard.KeyDown))
         }
 
         private void Play()
