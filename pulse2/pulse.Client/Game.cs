@@ -13,6 +13,8 @@ using OpenTK.Graphics.OpenGL;
 using pulse.Client.Audio;
 using pulse.Client.Graphics;
 using pulse.Client.Screens;
+using pulse.Client.Input;
+using pulse.Client.Songs;
 
 namespace pulse.Client
 {
@@ -20,7 +22,7 @@ namespace pulse.Client
     {
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
-        private BaseScreen _gameScreen;
+        private readonly InputHandler _inputHandler;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -30,6 +32,8 @@ namespace pulse.Client
 
             _screenManager = ScreenManager.Resolve();
             _screenManager.TitleSetter = title => Title = title;
+
+            _inputHandler = new InputHandler(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -41,16 +45,17 @@ namespace pulse.Client
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
             GL.ClearColor(Color4.SlateGray);
-
-            _gameScreen = new MenuScreen();
-            _screenManager.Active = _gameScreen;
+            
+            LoadScreens();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+            
+            _screenManager.Active.OnUpdateFrame(e);
 
-            _gameScreen.OnUpdateFrame(e);
+            _inputHandler.SwapBuffers();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -72,8 +77,9 @@ namespace pulse.Client
 
         private void LoadScreens()
         {
-            _screenManager.Add(new GameScreen());
-            _screenManager.Active = new MenuScreen();
+            _screenManager.Add(new GameScreen(_inputHandler));
+            _screenManager.Active = new MenuScreen(_inputHandler, new SizeF(this.Width, this.Height));
+            
         }
     }
 }
