@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Build\Debug\pulse2\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -67,6 +67,11 @@
     <Compile Include="Input\States\KeyboardState.cs" />
     <Compile Include="Input\States\MouseState.cs" />
     <Compile Include="Songs\Chart.cs" />
+    <Compile Include="Songs\ChartGroup.cs" />
+    <Compile Include="Songs\Mechanics\BookMark.cs" />
+    <Compile Include="Songs\Mechanics\ChartFile.cs" />
+    <Compile Include="Songs\Mechanics\Note.cs" />
+    <Compile Include="Songs\Mechanics\TimingSection.cs" />
     <Compile Include="Songs\MediaPlayer.cs" />
     <Compile Include="Input\Button.cs" />
     <Compile Include="Input\IClickable.cs" />

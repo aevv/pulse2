@@ -12,6 +12,7 @@ namespace pulse.PNCConverter.ConsoleHost
         static void Main(string[] args)
         {
             var control = new ConverterControl();
+            control.ConvertFolder(args[0]);
         }
     }
 }

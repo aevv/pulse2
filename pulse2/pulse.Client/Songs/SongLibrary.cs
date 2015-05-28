@@ -40,7 +40,7 @@ namespace pulse.Client.Songs
         {
             foreach (var subDir in dir.GetDirectories())
             {
-                ProcessSongDirectory(dir);
+                ProcessSongDirectory(subDir);
             }
 
         }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace pulse.Client.Songs
+namespace pulse.Client.Songs.Mechanics
 {
-    public class Song
+    public class ChartFile
     {
         public string FileName { get; set; }
-        public string SongName { get; set; }
-        public string Artist { get; set; }
+
+        public byte[] Data { get; set; }
     }
 }
