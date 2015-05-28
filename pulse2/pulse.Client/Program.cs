@@ -13,7 +13,7 @@ namespace pulse.Client
         static void Main(string[] args)
         {
             // Load ini config. Avoid using app.config for time being, keep simplicity.
-            var config = new ConfigLoader<PulseConfig>("config.ini").Load();
+            var config = ConfigLoader<PulseConfig>.Resolve("config.ini").Load();
 
             // Load song library prior to anything being shown.
             // TODO: Splash screen while loading occurs.

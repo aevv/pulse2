@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace pulse.Client.Screens
         private Button _btnOptions;
         private Button _btnQuit;
         private ScreenManager _screenManager;
+        private RawText _text;
 
         public MenuScreen(InputHandler inputHandler, SizeF screenSize) : base(inputHandler, screenSize)
         {
@@ -43,6 +45,8 @@ namespace pulse.Client.Screens
             Name = "Menu Screen";
 
             _screenManager = ScreenManager.Resolve();
+
+            _text = new RawText("Hello world!", new PointF(0, 0), true);
         }
 
         public override void OnUpdateFrame(FrameEventArgs e)
@@ -55,6 +59,7 @@ namespace pulse.Client.Screens
             }
             if (_btnPlay.IsMouseOver(InputChecker.Cursor))
             {
+
             }
 
             if (_btnOptions.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
@@ -63,6 +68,7 @@ namespace pulse.Client.Screens
             }
             if (_btnOptions.IsMouseOver(InputChecker.Cursor))
             {
+
             }
 
             if (_btnQuit.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
@@ -71,8 +77,15 @@ namespace pulse.Client.Screens
             }
             if (_btnQuit.IsMouseOver(InputChecker.Cursor))
             {
-            }
 
+            }
+        }
+
+        public override void OnRenderFrame(FrameEventArgs e)
+        {
+            base.OnRenderFrame(e);
+
+            _text.OnRenderFrame(e);
         }
 
         private void Play()

@@ -59,6 +59,16 @@ namespace pulse.Client.Graphics
             return GenerateFromBitmap(bitmap);
         }
 
+        private static SizeF GetStringSize(string text, Font font)
+        {
+            using (Bitmap temp = new Bitmap(1, 1))
+            {
+                System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(temp);
+                SizeF temp2 = g.MeasureString(text, font);
+                return temp2;
+            }
+        }
+
         private static int GenerateFromBitmap(Bitmap bitmap)
         {
             try
