@@ -30,6 +30,9 @@ namespace pulse.Client.Songs
 
         public Sound GetRandomSong()
         {
+            if (_charts.Count == 0)
+                return null;
+
             var rand = new Random();
             var index = rand.Next(0, _charts.Count);
             var group = _charts[index];

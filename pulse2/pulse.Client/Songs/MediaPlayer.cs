@@ -43,7 +43,8 @@ namespace pulse.Client.Songs
             get { return _currentSound; }
             set
             {
-                _currentSound.Stop();
+                if (_currentSound != null)
+                    _currentSound.Stop();
 
                 if (value == null)
                     return;
@@ -57,23 +58,27 @@ namespace pulse.Client.Songs
 
         public void Play()
         {
-            _currentSound.Play();
+            if (_currentSound != null)
+                _currentSound.Play();
         }
 
         public void Pause()
         {
-            _currentSound.Pause();
+            if (_currentSound != null)
+                _currentSound.Pause();
         }
 
         public void Stop()
         {
-            _currentSound.Stop();
+            if (_currentSound != null)
+                _currentSound.Stop();
         }
 
         public void PlayRandom()
         {
             _currentSound = _library.GetRandomSong();
-            _currentSound.Play();
+            if (_currentSound != null)
+                _currentSound.Play();
         }
 
         public void OnRenderFrame(FrameEventArgs args)
