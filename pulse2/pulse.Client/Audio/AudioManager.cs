@@ -20,7 +20,7 @@ namespace pulse.Client.Audio
         {
             if (_initialised) return;
 
-            BassNet.Registration("tm939@gre.ac.uk", "2X18221315153720");
+            
             Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
             BassFx.LoadMe();
 
