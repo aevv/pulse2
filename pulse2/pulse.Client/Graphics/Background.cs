@@ -9,6 +9,7 @@ namespace pulse.Client.Graphics
             Location = new PointF(0, 0);
             Size = new SizeF(screenSize);
             ApplyTexture(texture);
+            Depth = -7;
         }
     }
 }

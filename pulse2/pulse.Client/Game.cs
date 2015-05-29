@@ -3,6 +3,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using pulse.Client.Graphics;
 using pulse.Client.Input;
 using pulse.Client.Screens;
 
@@ -13,6 +14,8 @@ namespace pulse.Client
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
         private readonly InputHandler _inputHandler;
+
+        private FpsCounter _fpsCounter;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -34,9 +37,14 @@ namespace pulse.Client
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
+            GL.Enable(EnableCap.DepthTest);
+            GL.DepthFunc(DepthFunction.Lequal);
+
             GL.ClearColor(Color4.SlateGray);
             
             LoadScreens();
+
+            _fpsCounter = new FpsCounter();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -44,6 +52,8 @@ namespace pulse.Client
             base.OnUpdateFrame(e);
             
             _screenManager.Active.OnUpdateFrame(e);
+
+            _fpsCounter.OnUpdateFrame(e);
 
             _inputHandler.SwapBuffers();
         }
@@ -54,12 +64,14 @@ namespace pulse.Client
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, -1, 1);
+            Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, -10, 10);
             GL.MatrixMode(MatrixMode.Projection);
             GL.PushMatrix();
             GL.LoadMatrix(ref ortho);
 
             _screenManager.Active.OnRenderFrame(e);
+
+            _fpsCounter.OnRenderFrame(e);
 
             GL.PopMatrix();
             SwapBuffers();

@@ -18,6 +18,7 @@ namespace pulse.Client.Graphics
         public Color4 Colour { get; set; }
         public Font Font { get; set; }
         public bool Shadow { get; set; }
+        public float Depth { get; set; }
 
         public string Text
         {

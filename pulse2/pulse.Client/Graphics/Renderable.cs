@@ -15,6 +15,7 @@ namespace pulse.Client.Graphics
         public float Rotation { get; set; }
         public PointF DrawOffset { get; set; }
         public Color4 Colour { get; set; }
+        public float Depth { get; set; }
 
         protected Renderable()
         {
@@ -70,16 +71,16 @@ namespace pulse.Client.Graphics
                 GL.Begin(PrimitiveType.Quads);
 
                 GL.TexCoord2(0, 0);
-                GL.Vertex2(Location.X, Location.Y);
+                GL.Vertex3(Location.X, Location.Y, Depth);
                
                 GL.TexCoord2(1, 0);
-                GL.Vertex2(Location.X + Size.Width, Location.Y);
+                GL.Vertex3(Location.X + Size.Width, Location.Y, Depth);
 
                 GL.TexCoord2(1, 1);
-                GL.Vertex2(Location.X + Size.Width, Location.Y + Size.Height);
+                GL.Vertex3(Location.X + Size.Width, Location.Y + Size.Height, Depth);
 
                 GL.TexCoord2(0, 1);
-                GL.Vertex2(Location.X, Location.Y + Size.Height);
+                GL.Vertex3(Location.X, Location.Y + Size.Height, Depth);
 
 
                 GL.End();

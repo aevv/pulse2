@@ -13,7 +13,6 @@ namespace pulse.Client.Screens
         private string _name;
         private string _title;
         private readonly List<Renderable> _renderables;
-        private KeyboardState current, previous;
         private SizeF ScreenSize { get; set; }
 
         private readonly InputHandler _inputHandler;

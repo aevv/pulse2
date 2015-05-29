@@ -32,6 +32,7 @@ namespace pulse.Client.Songs
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
         public Color4 Colour { get; set; }
+        public float Depth { get; set; }
 
         public bool AutoPlay { get; set; }
 

@@ -59,8 +59,10 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Background.cs" />
+    <Compile Include="Graphics\FpsCounter.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
+    <Compile Include="Graphics\Interface\IUpdateable.cs" />
     <Compile Include="Graphics\Quad.cs" />
     <Compile Include="Graphics\RawText.cs" />
     <Compile Include="Graphics\Renderable.cs" />
@@ -104,9 +106,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\button.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Sleep Away.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

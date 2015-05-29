@@ -13,7 +13,8 @@ namespace pulse.Client
             // Load song library prior to anything being shown.
             // TODO: Splash screen while loading occurs.
             var library = SongLibrary.Instance;
-            library.Load(Constants.SongFolder);
+            //Comment out for fast load for testing until song DB is implemented
+            //library.Load(Constants.SongFolder);
             new Game(config).Run(120, 120);
         }
     }
