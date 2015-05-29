@@ -25,23 +25,42 @@ namespace pulse.Client.Songs
 
         private SongLibrary()
         {
-            _charts = new List<ChartGroup>();
+            _chartsGroups = new List<ChartGroup>();
+            _songMetas = new List<SongMeta>();
         }
+
+        private List<ChartGroup> _chartsGroups;
+        private List<SongMeta> _songMetas; 
+        private bool _initialLoad;
 
         public Sound GetRandomSong()
         {
-            if (_charts.Count == 0)
+            if (_songMetas.Count == 0)
                 return null;
 
             var rand = new Random();
-            var index = rand.Next(0, _charts.Count);
-            var group = _charts[index];
-            index = rand.Next(0, group.Charts.Count);
-            return AudioManager.LoadSound(group.Files.First(f => f.FileName == group.Charts[index].FileName).Data);
+            var index = rand.Next(0, _songMetas.Count);
+            var chartGroup = ProcessPcgFile(_songMetas[index].FileName);
+            index = rand.Next(0, chartGroup.Charts.Count);
+            return AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data);
         }
 
-        private List<ChartGroup> _charts;
-        private bool _initialLoad;
+        public void Scan(string directory)
+        {
+            var dir = new DirectoryInfo(directory);
+
+            if (!dir.Exists)
+            {
+                dir.Create();
+                return;
+            }
+
+            foreach (var file in dir.GetFiles("*.pcg"))
+            {
+                if (!_songMetas.Any(f => f.FileName == file.FullName))
+                    _songMetas.Add(new SongMeta(){FileName = file.FullName});
+            }
+        }
 
         public void Load(string directory)
         {
@@ -62,10 +81,10 @@ namespace pulse.Client.Songs
         {
             foreach (var file in dir.GetFiles("*.pcg"))
             {
-                var chartGroup = ProcessPcgFile(file);
+                var chartGroup = ProcessPcgFile(file.FullName);
 
                 if (chartGroup != null)
-                    _charts.Add(chartGroup);
+                    _chartsGroups.Add(chartGroup);
             }
         }
 
@@ -75,10 +94,10 @@ namespace pulse.Client.Songs
         // read new files one at a time to not flood RAM and serialise meta data to some local database. Then use this database of
         // files to navigate, and load a file into memory once it is required, unloading once it's no longer used (or after some specified time).
 
-        private ChartGroup ProcessPcgFile(FileInfo file)
+        private ChartGroup ProcessPcgFile(string fileName)
         {
-            Console.WriteLine("Loading PCG {0}", file.FullName);
-            return JsonConvert.DeserializeObject<ChartGroup>(Encoding.UTF8.GetString(Decompress(File.ReadAllBytes(file.FullName))));
+            Console.WriteLine("Loading PCG {0}", fileName);
+            return JsonConvert.DeserializeObject<ChartGroup>(Encoding.UTF8.GetString(Decompress(File.ReadAllBytes(fileName))));
         }
 
         private byte[] Decompress(byte[] toDecompress)

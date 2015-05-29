@@ -90,6 +90,7 @@
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Songs\Song.cs" />
     <Compile Include="Songs\SongLibrary.cs" />
+    <Compile Include="Songs\SongMeta.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
