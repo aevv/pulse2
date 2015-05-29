@@ -25,22 +25,23 @@ namespace pulse.Client.Songs
 
         private SongLibrary()
         {
-            _chartsGroups = new List<ChartGroup>();
-            _songMetas = new List<SongMeta>();
+            _songs = new List<Song>();
         }
 
-        private List<ChartGroup> _chartsGroups;
-        private List<SongMeta> _songMetas; 
+        private List<Song> _songs; 
         private bool _initialLoad;
 
         public Sound GetRandomSong()
         {
-            if (_songMetas.Count == 0)
+            if (_songs.Count == 0)
                 return null;
 
             var rand = new Random();
-            var index = rand.Next(0, _songMetas.Count);
-            var chartGroup = ProcessPcgFile(_songMetas[index].FileName);
+            var index = rand.Next(0, _songs.Count);
+            var chartGroup = ProcessPcgFile(_songs[index].FileName);
+            chartGroup.PgcName = _songs[index].FileName;
+            _songs[index].GroupName = chartGroup.GroupName;
+            _songs[index].GroupCreator = chartGroup.GroupCreator;
             index = rand.Next(0, chartGroup.Charts.Count);
             return AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data);
         }
@@ -57,42 +58,12 @@ namespace pulse.Client.Songs
 
             foreach (var file in dir.GetFiles("*.pcg"))
             {
-                if (!_songMetas.Any(f => f.FileName == file.FullName))
-                    _songMetas.Add(new SongMeta(){FileName = file.FullName});
-            }
-        }
-
-        public void Load(string directory)
-        {
-            if (_initialLoad)
-                return;
-
-            var dir = new DirectoryInfo(directory);
-
-            if (!dir.Exists)
-                dir.Create();
-
-            ProcessSongDirectory(dir);
-
-            _initialLoad = true;
-        }
-
-        private void ProcessSongDirectory(DirectoryInfo dir)
-        {
-            foreach (var file in dir.GetFiles("*.pcg"))
-            {
-                var chartGroup = ProcessPcgFile(file.FullName);
-
-                if (chartGroup != null)
-                    _chartsGroups.Add(chartGroup);
+                if (_songs.All(f => f.FileName != file.FullName))
+                    _songs.Add(new Song(){FileName = file.FullName});
             }
         }
 
         // TODO: Refactor these out to reusable classes.
-        // TODO: Song library fast load from a flat database.
-        // Current implementation reads entire files into memory. This scales horribly. Clever solution needs to look at file names,
-        // read new files one at a time to not flood RAM and serialise meta data to some local database. Then use this database of
-        // files to navigate, and load a file into memory once it is required, unloading once it's no longer used (or after some specified time).
 
         private ChartGroup ProcessPcgFile(string fileName)
         {
