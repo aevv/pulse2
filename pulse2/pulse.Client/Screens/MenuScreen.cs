@@ -21,17 +21,17 @@ namespace pulse.Client.Screens
             _bg = new Background("Assets\\bg.jpg", screenSize);
             Renderables.Add(_bg);
 
-            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50, "Play");
+            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50, "Play", 0);
             _btnPlay.ApplyTexture("Assets\\button.png");
             _btnPlay.ClickEvent = Play;
             Renderables.Add(_btnPlay);
 
-            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50,"Options");
+            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50,"Options", 0);
             _btnOptions.ApplyTexture("Assets\\button.png");
             _btnOptions.ClickEvent = Options;
             Renderables.Add(_btnOptions);
 
-            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50, "Quit");
+            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50, "Quit", 0);
             _btnQuit.ApplyTexture("Assets\\button.png");
             _btnQuit.ClickEvent = Quit;
             Renderables.Add(_btnQuit);
