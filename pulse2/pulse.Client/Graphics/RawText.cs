@@ -35,6 +35,11 @@ namespace pulse.Client.Graphics
             }
         }
 
+        public RawText(string text, bool shadow = false) : this(text, new PointF(0, 0), shadow)
+        {
+            
+        }
+
         public RawText(string text, PointF location, bool shadow = false)
         {
             Font = ConfigLoader<PulseConfig>.Instance.Font;

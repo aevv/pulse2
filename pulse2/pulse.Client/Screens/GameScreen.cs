@@ -2,6 +2,7 @@
 using OpenTK;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Input.Events;
 
 namespace pulse.Client.Screens
 {
@@ -26,13 +27,15 @@ namespace pulse.Client.Screens
 
         private double _velocity = 500;
 
-        public override void OnUpdateFrame(FrameEventArgs e)
+        public override void OnUpdateFrame(UpdateFrameEventArgs args)
         {
-            base.OnUpdateFrame(e);
+            base.OnUpdateFrame(args);
 
-            var x = _quad2.Location.X + (_velocity*e.Time);
+            var x = _quad2.Location.X + (_velocity*args.Time);
 
             _quad2.Location = new PointF((float)x, _quad2.Location.Y);
+            if (x > ScreenSize.Width)
+                x = 0;
 
         }
     }

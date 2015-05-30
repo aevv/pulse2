@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Graphics;
 using pulse.Client.Graphics;
+using pulse.Client.Graphics.Interface;
+using pulse.Client.Input.Events;
 
 namespace pulse.Client.Input
 {
@@ -10,16 +13,25 @@ namespace pulse.Client.Input
         private Action _clickEvent;
         private readonly RawText _text;
         public RectangleF Boundaries { get; set; }
-        public Action ClickEvent { set { _clickEvent = value; } }
+        public event ClickEventHandler OnClick;
+        public Color4 TextColour { get { return _text.Colour; } set { _text.Colour = value; } }
 
-        public Button(float x, float y, float width, float height, string text, float depth)
+        public Button(PointF location, SizeF size, string text, float depth = 0.0f)
         {
-            Location = new PointF(x, y);
-            Size = new SizeF(width, height);
-            Boundaries = new RectangleF(x, y, width, height);
-            _text = new RawText(text, new PointF(Location.X + (Size.Width/4), Location.Y + Size.Height/8));
+
+            Location = location;
+            Size = size;
+            Boundaries = new RectangleF(location, size);
+            _text = new RawText(text, true);
+            _text.Location = new PointF(Location.X + (Size.Width/4), Location.Y + Size.Height/8);
             Depth = depth;
             _text.Depth = depth + 0.1f;
+            // TODO: Config this
+            ApplyTexture("Assets\\button.png");
+        }
+
+        public Button(float x, float y, float width, float height, string text, float depth = 0.0f) : this(new PointF(x, y), new SizeF(width, height), text, depth)
+        {
         }
 
         public bool IsMouseOver(float x, float y)
@@ -34,7 +46,8 @@ namespace pulse.Client.Input
 
         public void Click()
         {
-            _clickEvent();
+            if (OnClick != null)
+                OnClick();
         }
 
         public override void OnRenderFrame(FrameEventArgs e)
@@ -44,5 +57,8 @@ namespace pulse.Client.Input
             _text.OnRenderFrame(e);
         }
 
+        public void OnUpdateFrame(UpdateFrameEventArgs args)
+        {
+        }
     }
 }

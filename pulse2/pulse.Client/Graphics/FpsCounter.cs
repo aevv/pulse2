@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using pulse.Client.Graphics.Interface;
+using pulse.Client.Input.Events;
 
 namespace pulse.Client.Graphics
 {
@@ -34,7 +35,7 @@ namespace pulse.Client.Graphics
             _fpsText.OnRenderFrame(args);
         }
 
-        public void OnUpdateFrame(FrameEventArgs args)
+        public void OnUpdateFrame(UpdateFrameEventArgs args)
         {
             _totalTime += args.Time;
 

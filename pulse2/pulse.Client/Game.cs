@@ -5,6 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Input.Events;
 using pulse.Client.Logging;
 using pulse.Client.Screens;
 
@@ -55,10 +56,12 @@ namespace pulse.Client
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            
-            _screenManager.Active.OnUpdateFrame(e);
 
-            _fpsCounter.OnUpdateFrame(e);
+            var updateArgs = new UpdateFrameEventArgs(e, _inputHandler);
+            
+            _screenManager.Active.OnUpdateFrame(updateArgs);
+
+            _fpsCounter.OnUpdateFrame(updateArgs);
 
             _inputHandler.SwapBuffers();
         }

@@ -67,6 +67,8 @@
     <Compile Include="Graphics\RawText.cs" />
     <Compile Include="Graphics\Renderable.cs" />
     <Compile Include="Graphics\TextureManager.cs" />
+    <Compile Include="Input\Events\ClickEventHandler.cs" />
+    <Compile Include="Input\Events\UpdateFrameEventArgs.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\InputHandler.cs" />
     <Compile Include="Input\Interface\IInputChecker.cs" />

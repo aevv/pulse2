@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using OpenTK;
+using OpenTK.Graphics;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Input.Events;
 using pulse.Client.Songs;
 
 namespace pulse.Client.Screens
@@ -21,20 +23,21 @@ namespace pulse.Client.Screens
             _bg = new Background("Assets\\bg.jpg", screenSize);
             Renderables.Add(_bg);
 
-            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50, "Play", 0);
-            _btnPlay.ApplyTexture("Assets\\button.png");
-            _btnPlay.ClickEvent = Play;
+            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2, 200, 50, "Play");
+            _btnPlay.OnClick += Play;
+            _btnPlay.Colour = Color4.DeepSkyBlue;
             Renderables.Add(_btnPlay);
+            Updateables.Add(_btnPlay);
 
-            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50,"Options", 0);
-            _btnOptions.ApplyTexture("Assets\\button.png");
-            _btnOptions.ClickEvent = Options;
+            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 5, 200, 50,"Options");
+            _btnOptions.OnClick += Options;
             Renderables.Add(_btnOptions);
+            Updateables.Add(_btnOptions);
 
-            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50, "Quit", 0);
-            _btnQuit.ApplyTexture("Assets\\button.png");
-            _btnQuit.ClickEvent = Quit;
+            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 5) * 2), 200, 50, "Quit");
+            _btnQuit.OnClick += Quit;
             Renderables.Add(_btnQuit);
+            Updateables.Add(_btnQuit);
 
             Name = "Menu Screen";
 
@@ -43,36 +46,9 @@ namespace pulse.Client.Screens
             MediaPlayer.Instance.PlayRandom();
         }
 
-        public override void OnUpdateFrame(FrameEventArgs e)
+        public override void OnUpdateFrame(UpdateFrameEventArgs args)
         {
-            base.OnUpdateFrame(e);
-
-            if (_btnPlay.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
-            {
-                _btnPlay.Click();
-            }
-            if (_btnPlay.IsMouseOver(InputChecker.Cursor))
-            {
-
-            }
-
-            if (_btnOptions.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
-            {
-                _btnOptions.Click();
-            }
-            if (_btnOptions.IsMouseOver(InputChecker.Cursor))
-            {
-
-            }
-
-            if (_btnQuit.IsMouseOver(InputChecker.Cursor) && InputChecker.LeftClick)
-            {
-                _btnQuit.Click();
-            }
-            if (_btnQuit.IsMouseOver(InputChecker.Cursor))
-            {
-
-            }
+            base.OnUpdateFrame(args);
         }
 
         public override void OnRenderFrame(FrameEventArgs e)
