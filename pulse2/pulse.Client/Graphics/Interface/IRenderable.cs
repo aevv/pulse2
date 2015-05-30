@@ -6,6 +6,7 @@ namespace pulse.Client.Graphics.Interface
 {
     interface IRenderable
     {
+        bool Visible { get; set; }
         PointF Location { get; set; }
         SizeF Size { get; set; }
         float Rotation { get; set; }

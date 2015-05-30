@@ -28,6 +28,7 @@ namespace pulse.Client.Songs
             _library = SongLibrary.Instance;
         }
 
+        public bool Visible { get; set; }
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public float Rotation { get; set; }

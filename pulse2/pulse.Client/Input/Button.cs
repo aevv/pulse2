@@ -50,11 +50,11 @@ namespace pulse.Client.Input
                 OnClick();
         }
 
-        public override void OnRenderFrame(FrameEventArgs e)
+        public override void OnRenderFrame(FrameEventArgs args)
         {
-            base.OnRenderFrame(e);
+            base.OnRenderFrame(args);
 
-            _text.OnRenderFrame(e);
+            _text.OnRenderFrame(args);
         }
 
         public void OnUpdateFrame(UpdateFrameEventArgs args)

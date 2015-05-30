@@ -8,6 +8,7 @@ namespace pulse.Client.Graphics
 {
     abstract class Renderable : IRenderable, ITexturable
     {
+        public bool Visible { get; set; }
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public int TextureId { get; private set; }
@@ -42,7 +43,7 @@ namespace pulse.Client.Graphics
             TexturePath = string.Empty;
         }
 
-        public virtual void OnRenderFrame(FrameEventArgs e)
+        public virtual void OnRenderFrame(FrameEventArgs args)
         {
             GL.PushMatrix();
 

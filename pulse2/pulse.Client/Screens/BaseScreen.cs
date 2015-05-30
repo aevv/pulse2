@@ -28,7 +28,7 @@ namespace pulse.Client.Screens
             protected set { _name = value; }
         }
 
-        public string Title { get; set; }
+        public string Title { get { return _title; } set { _title = value; } }
 
         protected List<IRenderable> Renderables
         {
@@ -52,11 +52,11 @@ namespace pulse.Client.Screens
             ScreenSize = screenSize;
         }
 
-        public virtual void OnRenderFrame(FrameEventArgs e)
+        public virtual void OnRenderFrame(FrameEventArgs args)
         {
             foreach (var renderable in _renderables)
             {
-                renderable.OnRenderFrame(e);
+                renderable.OnRenderFrame(args);
             }
         }
 

@@ -12,6 +12,7 @@ namespace pulse.Client.Graphics
         private string _text;
         private int _textureId;
 
+        public bool Visible { get; set; }
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public float Rotation { get; set; }

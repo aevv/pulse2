@@ -58,6 +58,7 @@
     <Compile Include="Audio\Sound.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
     <Compile Include="Graphics\FpsCounter.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
@@ -108,6 +109,27 @@
     </Content>
     <Content Include="Assets\bg.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Burst\burst6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

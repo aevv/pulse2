@@ -23,6 +23,7 @@ namespace pulse.Client.Screens
             Renderables.Add(_quad2);
 
             Name = "Game Screen";
+            Title = "pulse";
         }
 
         private double _velocity = 500;

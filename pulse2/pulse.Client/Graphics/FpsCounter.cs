@@ -13,6 +13,7 @@ namespace pulse.Client.Graphics
 {
     class FpsCounter : IRenderable, IUpdateable
     {
+        public bool Visible { get; set; }
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
