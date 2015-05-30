@@ -41,7 +41,7 @@ namespace pulse.Client.Screens
             Renderables.Add(_btnQuit);
             Updateables.Add(_btnQuit);
 
-            _animTest = new Animation(new PointF(300, 300), new SizeF(100, 100));
+            _animTest = new Animation(new PointF(200, 200), new SizeF(300, 300));
             _animTest.ApplyTextures(Enumerable.Range(0, 7).Select(i => string.Format("Assets/Burst/burst{0}.png", i)));
             _animTest.Depth = 5;
             _animTest.Loop = true;
@@ -52,7 +52,10 @@ namespace pulse.Client.Screens
 
             _screenManager = ScreenManager.Resolve();
 
-            MediaPlayer.Instance.PlayRandom();
+            var player = MediaPlayer.Instance;
+            player.PlayRandom();
+            var chart = player.CurrentChart;
+            _bg.ApplyTexture(TextureManager.LoadImage(chart.Files.First(file => file.FileName == chart.Charts[0].BackgroundName).Data));
         }
 
         public override void OnUpdateFrame(UpdateFrameEventArgs args)

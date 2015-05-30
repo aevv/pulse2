@@ -32,7 +32,8 @@ namespace pulse.Client.Songs
         private List<Song> _songs; 
         private bool _initialLoad;
 
-        public Sound GetRandomSong()
+        // Temporary, honest :)
+        public Tuple<ChartGroup, Sound> GetRandomSong()
         {
             if (_songs.Count == 0)
                 return null;
@@ -45,7 +46,7 @@ namespace pulse.Client.Songs
             _songs[index].GroupName = chartGroup.GroupName;
             _songs[index].GroupCreator = chartGroup.GroupCreator;
             index = rand.Next(0, chartGroup.Charts.Count);
-            return AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data);
+            return new Tuple<ChartGroup, Sound>(chartGroup, AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data));
         }
 
         public void Scan(string directory)
