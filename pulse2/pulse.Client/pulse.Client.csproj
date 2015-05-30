@@ -72,6 +72,7 @@
     <Compile Include="Input\Interface\IInputChecker.cs" />
     <Compile Include="Input\States\KeyboardState.cs" />
     <Compile Include="Input\States\MouseState.cs" />
+    <Compile Include="Logging\LogTracer.cs" />
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\ChartGroup.cs" />
     <Compile Include="Songs\Mechanics\BookMark.cs" />

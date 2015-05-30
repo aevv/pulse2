@@ -5,6 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Logging;
 using pulse.Client.Screens;
 
 namespace pulse.Client
@@ -14,12 +15,15 @@ namespace pulse.Client
         private readonly PulseConfig _config;
         private readonly ScreenManager _screenManager;
         private readonly InputHandler _inputHandler;
+        private readonly LogTracer _trace;
 
         private FpsCounter _fpsCounter;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
         {
+            _trace = LogTracer.Instance;
+            _trace.TraceInfo("pulse startup");
             _config = config;
             VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
 
@@ -31,6 +35,7 @@ namespace pulse.Client
 
         protected override void OnLoad(EventArgs e)
         {
+
             base.OnLoad(e);
             
             GL.Enable(EnableCap.Texture2D);
