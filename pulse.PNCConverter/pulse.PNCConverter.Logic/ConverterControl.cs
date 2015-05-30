@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using pulse.Client.IO;
 using pulse.Client.Songs;
 using pulse.Client.Songs.Mechanics;
 
@@ -23,12 +24,11 @@ namespace pulse.PNCConverter.Logic
 
             var groups = songDirs.Select(ProcessSongDir).Where(g => g != null);
 
+            var packer = new FilePacker();
+
             foreach (var group in groups)
             {
-                var serialised = JsonConvert.SerializeObject(group);
-                var bytes = Encoding.UTF8.GetBytes(serialised);
-                var compressed = Compress(bytes);
-                File.WriteAllBytes(string.Format("C:\\PCG\\{0}.pcg", group.FolderName) , compressed);
+                packer.PackObjectToFile(group, string.Format("C:\\PCG\\{0}.pcg", group.FolderName));
             }
         }
 
@@ -167,18 +167,6 @@ namespace pulse.PNCConverter.Logic
             var bookmarkOffset = Convert.ToDouble(keys[1], _culture);
 
             chart.Bookmarks.Add(new Bookmark(bookmarkOffset));
-        }
-
-        private byte[] Compress(byte[] toCompress)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                using (GZipStream gzip = new GZipStream(stream, CompressionMode.Compress, true))
-                {
-                    gzip.Write(toCompress, 0, toCompress.Length);
-                }
-                return stream.ToArray();
-            }
         }
     }
 }

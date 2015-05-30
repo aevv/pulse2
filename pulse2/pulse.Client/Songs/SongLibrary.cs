@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using pulse.Client.Audio;
+using pulse.Client.IO;
 
 namespace pulse.Client.Songs
 {
@@ -38,7 +39,8 @@ namespace pulse.Client.Songs
 
             var rand = new Random();
             var index = rand.Next(0, _songs.Count);
-            var chartGroup = ProcessPcgFile(_songs[index].FileName);
+            var unpacker = new FilePacker();
+            var chartGroup = unpacker.DeserialisePackedFile<ChartGroup>(_songs[index].FileName);
             chartGroup.PgcName = _songs[index].FileName;
             _songs[index].GroupName = chartGroup.GroupName;
             _songs[index].GroupCreator = chartGroup.GroupCreator;
@@ -60,29 +62,6 @@ namespace pulse.Client.Songs
             {
                 if (_songs.All(f => f.FileName != file.FullName))
                     _songs.Add(new Song(){FileName = file.FullName});
-            }
-        }
-
-        // TODO: Refactor these out to reusable classes.
-
-        private ChartGroup ProcessPcgFile(string fileName)
-        {
-            Console.WriteLine("Loading PCG {0}", fileName);
-            return JsonConvert.DeserializeObject<ChartGroup>(Encoding.UTF8.GetString(Decompress(File.ReadAllBytes(fileName))));
-        }
-
-        private byte[] Decompress(byte[] toDecompress)
-        {
-            using (var stream = new MemoryStream(toDecompress))
-            {
-                using (var gzip = new GZipStream(stream, CompressionMode.Decompress))
-                {
-                    using (var result = new MemoryStream())
-                    {
-                        gzip.CopyTo(result);
-                        return result.ToArray();
-                    }
-                }
             }
         }
     }

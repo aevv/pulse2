@@ -72,6 +72,7 @@
     <Compile Include="Input\Interface\IInputChecker.cs" />
     <Compile Include="Input\States\KeyboardState.cs" />
     <Compile Include="Input\States\MouseState.cs" />
+    <Compile Include="IO\FilePacker.cs" />
     <Compile Include="Logging\LogTracer.cs" />
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\ChartGroup.cs" />
@@ -116,9 +117,7 @@
       <Name>pulse.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
