@@ -76,7 +76,6 @@ namespace pulse.Client.Screens
         private void Play()
         {
             _screenManager.SetActive("Game Screen");
-            MediaPlayer.Instance.Play();
         }
 
         private void Options()

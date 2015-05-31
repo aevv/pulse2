@@ -66,6 +66,8 @@
       <DependentUpon>DefaultAssets.resx</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="Gameplay\Note.cs" />
+    <Compile Include="Gameplay\Receptor.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
     <Compile Include="Graphics\FpsCounter.cs" />
