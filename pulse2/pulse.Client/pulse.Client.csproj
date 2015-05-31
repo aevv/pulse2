@@ -145,8 +145,8 @@
     <Content Include="Assets\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\pulseicon.ico" />
     <None Include="Resources\PulseIcon.ico" />
-    <EmbeddedResource Include="Assets\pulseicon.ico" />
     <EmbeddedResource Include="DefaultAssets.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DefaultAssets.Designer.cs</LastGenOutput>
