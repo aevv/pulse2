@@ -53,6 +53,17 @@ namespace pulse.Client
             _fpsCounter = new FpsCounter();
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            _config.Height = Height;
+            _config.Width = Width;
+
+            GL.Viewport(new Size(Width, Height));
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            GL.Ortho(0, Width, 0, Height, -10, 10);
+        }
+
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
@@ -88,8 +99,7 @@ namespace pulse.Client
         private void LoadScreens()
         {
             _screenManager.Add(new GameScreen(_inputHandler));
-            _screenManager.Active = new MenuScreen(_inputHandler, new SizeF(Width, Height));
-            
+            _screenManager.Active = new MenuScreen(_inputHandler);
         }
     }
 }

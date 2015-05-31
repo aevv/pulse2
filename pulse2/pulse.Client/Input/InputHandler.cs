@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using OpenTK;
 using OpenTK.Input;
+using pulse.Client.Graphics;
 using pulse.Client.Input.Interface;
 using KeyboardState = pulse.Client.Input.States.KeyboardState;
 using MouseState = pulse.Client.Input.States.MouseState;
@@ -61,14 +63,21 @@ namespace pulse.Client.Input
 
         #region Input Utilities
 
-        public PointF Cursor { get { return _mouseState.Position; } }
+        public PointF UnscaledCursor { get { return _mouseState.Position; } }
+        public PointF Cursor
+        {
+            get
+            {
+                return new PointF(GraphicsUtil.ScaleInputX(_mouseState.Position.X), GraphicsUtil.ScaleInputY(_mouseState.Position.Y));
+            }
+        }
 
         public bool LeftClick { get { return _mouseState.Click(MouseButton.Left); } }
 
         public bool RightClick { get { return _mouseState.Click(MouseButton.Right); } }
 
         public bool MidClick { get { return _mouseState.Click(MouseButton.Middle); } }
-        
+
         public bool KeyPress(Key key)
         {
             return _keyboardState.KeyPress(key);

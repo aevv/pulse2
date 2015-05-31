@@ -124,5 +124,10 @@ namespace pulse.Client.Audio
                 _disposed = true;
             }
         }
+
+        ~Sound()
+        {
+            Dispose();
+        }
     }
 }

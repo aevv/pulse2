@@ -49,16 +49,22 @@ namespace pulse.Client.Graphics
 
             GL.Color4(Colour);
 
+            var scaledX = GraphicsUtil.ScaleX(Location.X);
+            var scaledY = GraphicsUtil.ScaleY(Location.Y);
+
+            var scaledWidth = GraphicsUtil.ScaleX(Size.Width);
+            var scaledHeight = GraphicsUtil.ScaleY(Size.Height);
+
             if (TextureId == -1)
             {
                 GL.Disable(EnableCap.Texture2D);
 
                 GL.Begin(PrimitiveType.Quads);
                 GL.Color4(Color4.White);
-                GL.Vertex2(Location.X, Location.Y);
-                GL.Vertex2(Location.X + Size.Width, Location.Y);
-                GL.Vertex2(Location.X + Size.Width, Location.Y + Size.Height);
-                GL.Vertex2(Location.X, Location.Y + Size.Height);
+                GL.Vertex2(scaledX, scaledY);
+                GL.Vertex2(scaledX + scaledWidth, scaledY);
+                GL.Vertex2(scaledX + scaledWidth, scaledY + scaledHeight);
+                GL.Vertex2(scaledX, scaledY + scaledHeight);
                 GL.End();
 
                 GL.Enable(EnableCap.Texture2D);
@@ -72,16 +78,16 @@ namespace pulse.Client.Graphics
                 GL.Begin(PrimitiveType.Quads);
 
                 GL.TexCoord2(0, 0);
-                GL.Vertex3(Location.X, Location.Y, Depth);
+                GL.Vertex3(scaledX, scaledY, Depth);
                
                 GL.TexCoord2(1, 0);
-                GL.Vertex3(Location.X + Size.Width, Location.Y, Depth);
+                GL.Vertex3(scaledX + scaledWidth, scaledY, Depth);
 
                 GL.TexCoord2(1, 1);
-                GL.Vertex3(Location.X + Size.Width, Location.Y + Size.Height, Depth);
+                GL.Vertex3(scaledX + scaledWidth, scaledY + scaledHeight, Depth);
 
                 GL.TexCoord2(0, 1);
-                GL.Vertex3(Location.X, Location.Y + Size.Height, Depth);
+                GL.Vertex3(scaledX, scaledY + scaledHeight, Depth);
 
 
                 GL.End();

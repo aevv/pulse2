@@ -35,7 +35,7 @@ namespace pulse.Client.Screens
             var x = _quad2.Location.X + (_velocity*args.Time);
 
             _quad2.Location = new PointF((float)x, _quad2.Location.Y);
-            if (x > ScreenSize.Width)
+            if (x > Window.Width)
                 x = 0;
 
         }

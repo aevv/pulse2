@@ -58,10 +58,10 @@ namespace pulse.Client.Graphics
             GL.BindTexture(TextureTarget.Texture2D, _textureId);
             GL.LineWidth(2f);
 
-            float x = Location.X;
-            float y = Location.Y;
-            float w = Size.Width;
-            float h = Size.Height;
+            float scaledX = GraphicsUtil.ScaleX(Location.X);
+            float scaledY = GraphicsUtil.ScaleY(Location.Y);
+            float scaledWidth = GraphicsUtil.ScaleX(Size.Width);
+            float scaledHeight = GraphicsUtil.ScaleY(Size.Height);
 
             if (Shadow)
             {
@@ -69,26 +69,26 @@ namespace pulse.Client.Graphics
                 GL.Color4(Color.Black);
                 GL.Begin(PrimitiveType.Quads);
                 GL.TexCoord2(0, 0);
-                GL.Vertex2(x + 1, y + 1);
+                GL.Vertex2(scaledX + 1, scaledY + 1);
                 GL.TexCoord2(1, 0);
-                GL.Vertex2(x + 1 + Size.Width, y + 1);
+                GL.Vertex2(scaledX + 1 + scaledWidth, scaledY + 1);
                 GL.TexCoord2(1, 1);
-                GL.Vertex2(x + 1 + Size.Width, y + 1 + Size.Height);
+                GL.Vertex2(scaledX + 1 + scaledWidth, scaledY + 1 + scaledHeight);
                 GL.TexCoord2(0, 1);
-                GL.Vertex2(x + 1, y + 1 + Size.Height);
+                GL.Vertex2(scaledX + 1, scaledY + 1 + scaledHeight);
                 GL.End();
             }
 
             GL.Color4(Colour);
             GL.Begin(PrimitiveType.Quads);
             GL.TexCoord2(0, 0);
-            GL.Vertex2(x, y);
+            GL.Vertex2(scaledX, scaledY);
             GL.TexCoord2(1, 0);
-            GL.Vertex2(x + w, y);
+            GL.Vertex2(scaledX + scaledWidth, scaledY);
             GL.TexCoord2(1, 1);
-            GL.Vertex2(x + w, y + h);
+            GL.Vertex2(scaledX + scaledWidth, scaledY + scaledHeight);
             GL.TexCoord2(0, 1);
-            GL.Vertex2(x, y + h);
+            GL.Vertex2(scaledX, scaledY + scaledHeight);
             GL.End();
 
             GL.PopMatrix();

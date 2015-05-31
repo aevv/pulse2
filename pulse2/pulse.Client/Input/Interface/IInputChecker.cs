@@ -7,6 +7,7 @@ namespace pulse.Client.Input.Interface
     {
         bool LeftClick { get; }
         PointF Cursor { get; }
+        PointF UnscaledCursor { get; }
         bool Click(MouseButton button);
         bool ClickHeld(MouseButton button);
         bool KeyPress(Key key);

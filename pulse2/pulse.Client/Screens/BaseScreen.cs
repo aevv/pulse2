@@ -18,8 +18,6 @@ namespace pulse.Client.Screens
         private readonly List<IUpdateable> _updateables;
         private readonly InputHandler _inputHandler;
 
-        protected SizeF ScreenSize { get; set; }
-
         protected IInputChecker InputChecker { get { return _inputHandler; }}
 
         public string Name
@@ -39,17 +37,11 @@ namespace pulse.Client.Screens
         {
             get { return _updateables; }
         } 
-
-        public BaseScreen(InputHandler inputHandler) : this(inputHandler, new SizeF(0, 0))
-        {
-        }
-
-        public BaseScreen(InputHandler inputHandler, SizeF screenSize)
+        public BaseScreen(InputHandler inputHandler)
         {
             _inputHandler = inputHandler;
             _renderables = new List<IRenderable>();
             _updateables = new List<IUpdateable>();
-            ScreenSize = screenSize;
         }
 
         public virtual void OnRenderFrame(FrameEventArgs args)

@@ -20,23 +20,23 @@ namespace pulse.Client.Screens
         private ScreenManager _screenManager;
         private RawText _text;
 
-        public MenuScreen(InputHandler inputHandler, SizeF screenSize) : base(inputHandler, screenSize)
+        public MenuScreen(InputHandler inputHandler) : base(inputHandler)
         {
-            _bg = new Background("Assets\\bg.jpg", screenSize);
+            _bg = new Background();
             Renderables.Add(_bg);
 
-            _btnPlay = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + 100, 200, 50, "Play");
+            _btnPlay = new Button(Window.Width / 2 - 100, Window.Height / 2 + 100, 200, 50, "Play");
             _btnPlay.OnClick += Play;
             _btnPlay.Colour = Color4.DeepSkyBlue;
             Renderables.Add(_btnPlay);
             Updateables.Add(_btnPlay);
 
-            _btnOptions = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + screenSize.Height / 10 + 100, 200, 50,"Options");
+            _btnOptions = new Button(Window.Width / 2 - 100, Window.Height / 2 + Window.Height / 10 + 100, 200, 50, "Options");
             _btnOptions.OnClick += Options;
             Renderables.Add(_btnOptions);
             Updateables.Add(_btnOptions);
 
-            _btnQuit = new Button(screenSize.Width / 2 - 100, screenSize.Height / 2 + ((screenSize.Height / 10) * 2) + 100, 200, 50, "Quit");
+            _btnQuit = new Button(Window.Width / 2 - 100, Window.Height / 2 + ((Window.Height / 10) * 2) + 100, 200, 50, "Quit");
             _btnQuit.OnClick += Quit;
             Renderables.Add(_btnQuit);
             Updateables.Add(_btnQuit);
@@ -52,10 +52,13 @@ namespace pulse.Client.Screens
 
             _screenManager = ScreenManager.Resolve();
 
+            //TODO: Refactor this hack
             var player = MediaPlayer.Instance;
             player.PlayRandom();
             var chart = player.CurrentChart;
-            _bg.ApplyTexture(TextureManager.LoadImage(chart.Files.First(file => file.FileName == chart.Charts[0].BackgroundName).Data));
+            var bgName = chart.Charts[0].BackgroundName;
+            if (!string.IsNullOrEmpty(bgName))
+                _bg.ApplyTexture(TextureManager.LoadImage(chart.Files.First(file => file.FileName == bgName).Data));
         }
 
         public override void OnUpdateFrame(UpdateFrameEventArgs args)

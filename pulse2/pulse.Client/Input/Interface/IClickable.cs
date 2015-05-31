@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using pulse.Client.Graphics.Interface;
 
-namespace pulse.Client.Input
+namespace pulse.Client.Input.Interface
 {
     interface IClickable : IUpdateable
     {

@@ -4,12 +4,15 @@ namespace pulse.Client.Graphics
 {
     class Background : Renderable
     {
-        public Background(string texture, SizeF screenSize)
+        public Background()
         {
             Location = new PointF(0, 0);
-            Size = new SizeF(screenSize);
-            ApplyTexture(texture);
+            Size = new SizeF(1024f, 768f);
             Depth = -7;
+        }
+        public Background(string texture) : this()
+        {
+            ApplyTexture(texture);
         }
     }
 }

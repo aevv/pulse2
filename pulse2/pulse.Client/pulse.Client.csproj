@@ -64,10 +64,12 @@
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
     <Compile Include="Graphics\Interface\IUpdateable.cs" />
+    <Compile Include="Graphics\Line.cs" />
     <Compile Include="Graphics\Quad.cs" />
     <Compile Include="Graphics\RawText.cs" />
     <Compile Include="Graphics\Renderable.cs" />
     <Compile Include="Graphics\TextureManager.cs" />
+    <Compile Include="Graphics\Graphicsutil.cs" />
     <Compile Include="Input\Events\ClickEventHandler.cs" />
     <Compile Include="Input\Events\UpdateFrameEventArgs.cs" />
     <Compile Include="Input\Input.cs" />
@@ -85,7 +87,7 @@
     <Compile Include="Songs\Mechanics\TimingSection.cs" />
     <Compile Include="Songs\MediaPlayer.cs" />
     <Compile Include="Input\Button.cs" />
-    <Compile Include="Input\IClickable.cs" />
+    <Compile Include="Input\Interface\IClickable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PulseConfig.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Songs\Song.cs" />
     <Compile Include="Songs\SongLibrary.cs" />
+    <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

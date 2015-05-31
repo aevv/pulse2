@@ -5,6 +5,7 @@ using OpenTK.Graphics;
 using pulse.Client.Graphics;
 using pulse.Client.Graphics.Interface;
 using pulse.Client.Input.Events;
+using pulse.Client.Input.Interface;
 
 namespace pulse.Client.Input
 {

@@ -7,11 +7,8 @@ namespace pulse.Client.Graphics.Interface
     interface IRenderable
     {
         bool Visible { get; set; }
-        PointF Location { get; set; }
-        SizeF Size { get; set; }
-        float Rotation { get; set; }
-        Color4 Colour { get; set; }
         float Depth { get; set; }
+        Color4 Colour { get; set; }
 
         void OnRenderFrame(FrameEventArgs args);
     }
