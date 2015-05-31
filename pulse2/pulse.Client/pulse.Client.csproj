@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\pulseicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>..\..\lib\Bass.Net.dll</HintPath>
@@ -57,6 +60,11 @@
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Audio\Sound.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DefaultAssets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DefaultAssets.resx</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
@@ -137,6 +145,12 @@
     <Content Include="Assets\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\PulseIcon.ico" />
+    <EmbeddedResource Include="Assets\pulseicon.ico" />
+    <EmbeddedResource Include="DefaultAssets.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DefaultAssets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pulse.Configuration\pulse.Configuration.csproj">
@@ -144,7 +158,9 @@
       <Name>pulse.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Screens\Forms\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

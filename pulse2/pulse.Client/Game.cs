@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -26,12 +27,15 @@ namespace pulse.Client
             _trace = LogTracer.Instance;
             _trace.TraceInfo("pulse startup");
             _config = config;
-            VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
 
             _screenManager = ScreenManager.Resolve();
             _screenManager.TitleSetter = title => Title = title;
 
             _inputHandler = new InputHandler(this);
+
+            VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
+
+            Icon = DefaultAssets.PulseIcon;
         }
 
         protected override void OnLoad(EventArgs e)
