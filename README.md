@@ -6,4 +6,4 @@ hoping to use experience gained since then to create something more extensible, 
 
 ## chat
 
-we're currently using IRC on the network redosid.pw
+we're currently using IRC on the network redrosid.pw
