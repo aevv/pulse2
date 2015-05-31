@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,6 +88,13 @@
     <Compile Include="Input\States\MouseState.cs" />
     <Compile Include="IO\FilePacker.cs" />
     <Compile Include="Logging\LogTracer.cs" />
+    <Compile Include="PulseLoader.cs" />
+    <Compile Include="Screens\Forms\LoadingSplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screens\Forms\LoadingSplashForm.Designer.cs">
+      <DependentUpon>LoadingSplashForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\ChartGroup.cs" />
     <Compile Include="Songs\Mechanics\BookMark.cs" />
@@ -158,9 +166,7 @@
       <Name>pulse.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Screens\Forms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
