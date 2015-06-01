@@ -17,7 +17,7 @@ namespace pulse.Client.Gameplay
 
         public Note(PointF location, SizeF size) : base(location, size)
         {
-
+            ApplyTexture("Assets\\note.png");
         }
     }
 }

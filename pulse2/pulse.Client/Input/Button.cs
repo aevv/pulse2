@@ -11,7 +11,6 @@ namespace pulse.Client.Input
 {
     class Button : Renderable, IClickable
     {
-        private Action _clickEvent;
         private readonly RawText _text;
         public RectangleF Boundaries { get; set; }
         public event ClickEventHandler OnClick;

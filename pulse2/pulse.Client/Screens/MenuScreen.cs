@@ -18,7 +18,6 @@ namespace pulse.Client.Screens
         private Button _btnQuit;
         private Animation _animTest;
         private ScreenManager _screenManager;
-        private RawText _text;
 
         public MenuScreen(InputHandler inputHandler) : base(inputHandler)
         {
