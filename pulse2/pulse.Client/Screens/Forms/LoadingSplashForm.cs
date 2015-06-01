@@ -15,6 +15,8 @@ namespace pulse.Client.Screens.Forms
     public partial class LoadingSplashForm : Form
     {
         private readonly PulseLoader _loader;
+        private double _currentProgress;
+
         public LoadingSplashForm(PulseLoader loader)
         {
             InitializeComponent();
@@ -32,13 +34,21 @@ namespace pulse.Client.Screens.Forms
 
         protected override void OnLoad(EventArgs e)
         {
-            Task.Factory.StartNew(_loader.LoadStaticContent).ContinueWith(task => Invoke(new MethodInvoker(Close)));
+            Task.Factory.StartNew(() => _loader.LoadStaticContent(UpdateProgress)).ContinueWith(task => Invoke(new MethodInvoker(Close)));
+        }
+
+        private void UpdateProgress(double progress)
+        {
+            _currentProgress = progress;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             var screenBounds = Screen.FromControl(this).Bounds;
             e.Graphics.DrawImage(Image.FromFile("Assets/bg.jpg"), new Point(screenBounds.Width / 2 - (1024 / 2), screenBounds.Height / 2 - (768 / 2)));
+            // TODO: This much better.
+            e.Graphics.DrawString(string.Format("{0}%", (int)_currentProgress), new Font("Roboto", 20), new SolidBrush(Color.White),
+                new PointF((screenBounds.Width / 2) - 200, (screenBounds.Height / 2) + 200));
             Invalidate();
         }
     }

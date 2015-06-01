@@ -12,6 +12,7 @@ namespace pulse.Client.Songs
 {
     class SongLibrary
     {
+        #region Singleton
         private static SongLibrary _instance;
         private static object _sync = new object();
 
@@ -23,14 +24,14 @@ namespace pulse.Client.Songs
                     return _instance ?? (_instance = new SongLibrary());
             }
         }
+        #endregion
 
         private SongLibrary()
         {
             _songs = new List<Song>();
         }
 
-        private List<Song> _songs; 
-        private bool _initialLoad;
+        private readonly List<Song> _songs;
 
         // Temporary, honest :)
         public Tuple<ChartGroup, Sound> GetRandomSong()
@@ -59,11 +60,52 @@ namespace pulse.Client.Songs
                 return;
             }
 
+            // TODO: Removal of songs no longer present?
+            // For scan at runtime, file system watcher etc.
             foreach (var file in dir.GetFiles("*.pcg"))
             {
                 if (_songs.All(f => f.FileName != file.FullName))
-                    _songs.Add(new Song(){FileName = file.FullName});
+                    _songs.Add(new Song { FileName = file.FullName });
             }
+        }
+
+        public void LoadDatabase(Action<double> progressCallback)
+        {
+            Scan(Constants.SongFolder);
+
+            var filePacker = new FilePacker();
+            var dbPath = string.Format("{0}\\{1}", Constants.SongFolder, Constants.SongDB);
+
+            IEnumerable<Song> database = null;
+
+            if (File.Exists(dbPath))
+                database = filePacker.DeserialisePackedFile<IEnumerable<Song>>(dbPath);
+
+            if (database == null)
+                database = new List<Song>();
+
+            var newSongs = _songs.Where(song => database.All(dbSong => dbSong.FileName != song.FileName)).ToList();
+
+            for (int i = 0; i < newSongs.Count; i++)
+            {
+                progressCallback((double)i / (newSongs.Count + 1) * 100);
+
+                if (!File.Exists(newSongs[i].FileName))
+                    continue;
+
+                var group = filePacker.DeserialisePackedFile<ChartGroup>(newSongs[i].FileName);
+
+                newSongs[i].GroupCreator = group.GroupCreator;
+                newSongs[i].GroupName = group.GroupName;
+                _songs.Add(newSongs[i]);
+            }
+
+            SaveDatabase();
+        }
+
+        public void SaveDatabase()
+        {
+            new FilePacker().PackObjectToFile(_songs, string.Format("{0}\\{1}", Constants.SongFolder, Constants.SongDB));
         }
     }
 }

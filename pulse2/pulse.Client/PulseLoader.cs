@@ -10,10 +10,10 @@ namespace pulse.Client
 {
     public class PulseLoader
     {
-        public void LoadStaticContent()
+        public void LoadStaticContent(Action<double> progressCallback)
         {
             var library = SongLibrary.Instance;
-            library.Scan(Constants.SongFolder);
+            library.LoadDatabase(progressCallback);
         }
     }
 }
