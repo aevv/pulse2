@@ -14,7 +14,7 @@ namespace Pulse2DataAcessLayer.Maps
         {
             Table("Role");
             Id(role => role.RoleId).GeneratedBy.Assigned().Column("RoleId");
-            Map(role => role.Name).Column("Name").Not.Nullable();
+            Map(role => role.Name).Column("Name").Not.Nullable().Nullable();
             Map(role => role.Description).Column("Description").Not.Nullable();
         }
     }

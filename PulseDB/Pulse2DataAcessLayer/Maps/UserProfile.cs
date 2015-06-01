@@ -15,8 +15,8 @@ namespace Pulse2DataAcessLayer.Maps
             Table("UserProfile");
             Id(userProfile => userProfile.UserProfileId).GeneratedBy.Assigned().Column("UserProfileId");
             Map(userProfile => userProfile.UserId).Column("UserId").Not.Nullable();
-            Map(userProfile => userProfile.Firstname).Column("Firstname");
-            Map(userProfile => userProfile.Lastname).Column("Lastname");
+            Map(userProfile => userProfile.Firstname).Column("Firstname").Nullable();
+            Map(userProfile => userProfile.Lastname).Column("Lastname").Nullable();
         }
     }
 }

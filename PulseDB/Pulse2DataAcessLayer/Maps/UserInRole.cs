@@ -16,8 +16,8 @@ namespace Pulse2DataAcessLayer.Maps
             CompositeId()
                 .KeyProperty(userInRole => userInRole.UserId, "UserId")
                 .KeyProperty(userInRole => userInRole.RoleId, "RoleId");
-            References(userInRole => userInRole.User).Column("UserId").Not.LazyLoad();
-            References(userInRole => userInRole.Role).Column("RoleId").Not.LazyLoad();
+            References(userInRole => userInRole.User).Column("UserId").Not.LazyLoad().Cascade.SaveUpdate();
+            References(userInRole => userInRole.Role).Column("RoleId").Not.LazyLoad().Cascade.SaveUpdate();
         }
     }
 }
