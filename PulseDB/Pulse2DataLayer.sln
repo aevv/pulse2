@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Pulse2DataLayer.Database", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pulse2DataLayer.Models", "Pulse2.Models\Pulse2DataLayer.Models.csproj", "{96ED783D-F736-49FF-A090-AFCED7F90AA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pulse2DataAcessLayer", "Pulse2DataAcessLayer\Pulse2DataAcessLayer.csproj", "{6092D462-F2F2-4A58-A141-350F585EA101}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{96ED783D-F736-49FF-A090-AFCED7F90AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96ED783D-F736-49FF-A090-AFCED7F90AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96ED783D-F736-49FF-A090-AFCED7F90AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6092D462-F2F2-4A58-A141-350F585EA101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6092D462-F2F2-4A58-A141-350F585EA101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6092D462-F2F2-4A58-A141-350F585EA101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6092D462-F2F2-4A58-A141-350F585EA101}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
