@@ -55,6 +55,13 @@ namespace pulse.Client.Graphics
             return GenerateFromBitmap(bitmap);
         }
 
+        public static int LoadImage(byte[] imageBytes)
+        {
+            Bitmap bitmap = new Bitmap(new MemoryStream(imageBytes));
+
+            return GenerateFromBitmap(bitmap);
+        }
+
         private static SizeF GetStringSize(string text, Font font)
         {
             using (Bitmap temp = new Bitmap(1, 1))

@@ -21,6 +21,18 @@ namespace pulse.Client.Audio
         {
             if (_initialised) return;
 
+            try
+            {
+                if (File.Exists("bass.key"))
+                {
+                    var kvp = File.ReadAllText("bass.key").Split(',');
+                    BassNet.Registration(kvp[0], kvp[1]);
+                }
+            }
+            catch
+            {
+                
+            }
             Bass.BASS_Init(-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
             BassFx.LoadMe();
 

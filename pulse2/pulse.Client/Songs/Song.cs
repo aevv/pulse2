@@ -3,7 +3,7 @@
     public class Song
     {
         public string FileName { get; set; }
-        public string SongName { get; set; }
-        public string Artist { get; set; }
+        public string GroupName { get; set; }
+        public string GroupCreator { get; set; }
     }
 }

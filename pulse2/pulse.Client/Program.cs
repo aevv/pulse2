@@ -1,4 +1,5 @@
-﻿using pulse.Client.Songs;
+﻿using pulse.Client.Screens.Forms;
+using pulse.Client.Songs;
 using pulse.Configuration;
 
 namespace pulse.Client
@@ -12,8 +13,9 @@ namespace pulse.Client
 
             // Load song library prior to anything being shown.
             // TODO: Splash screen while loading occurs.
-            var library = SongLibrary.Instance;
-            library.Load(Constants.SongFolder);
+            var loadSplash = new LoadingSplashForm(new PulseLoader());
+            loadSplash.ShowDialog();
+
             new Game(config).Run(120, 120);
         }
     }

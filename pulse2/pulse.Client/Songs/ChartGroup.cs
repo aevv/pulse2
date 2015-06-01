@@ -12,7 +12,6 @@ namespace pulse.Client.Songs
     /// </summary>
     public class ChartGroup
     {
-
         public string FolderName
         {
             get
@@ -21,8 +20,17 @@ namespace pulse.Client.Songs
                 return allFolders[allFolders.Length - 1];
             }
         }
+        public string PgcName { get; set; }
         public string FolderPath { get; set; }
+        public string GroupName { get; set; }
+        public string GroupCreator { get; set; }
+        /// <summary>
+        /// Gameplay charts.
+        /// </summary>
         public List<Chart> Charts { get; set; }
+        /// <summary>
+        /// Files used by charts, mp3 background etc.
+        /// </summary>
         public List<ChartFile> Files { get; set; }
 
         public ChartGroup()

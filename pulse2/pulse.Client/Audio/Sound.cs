@@ -18,7 +18,7 @@ namespace pulse.Client.Audio
         {
             _handle = handle;
             _path = path;
-            Volume = 0.5f;
+            Volume = 0.25f;
             Stopped = true;
         }
 
@@ -123,6 +123,11 @@ namespace pulse.Client.Audio
                 AudioManager.Unload(_path);
                 _disposed = true;
             }
+        }
+
+        ~Sound()
+        {
+            Dispose();
         }
     }
 }

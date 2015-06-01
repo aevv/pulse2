@@ -1,7 +1,9 @@
 ﻿using System.Drawing;
+using System.Runtime.CompilerServices;
 using OpenTK;
 using pulse.Client.Graphics;
 using pulse.Client.Input;
+using pulse.Client.Input.Events;
 
 namespace pulse.Client.Screens
 {
@@ -22,18 +24,25 @@ namespace pulse.Client.Screens
             Renderables.Add(_quad2);
 
             Name = "Game Screen";
+            Title = "pulse";
         }
 
-        private double _velocity = 500;
+        private double _velocity = 2000;
 
-        public override void OnUpdateFrame(FrameEventArgs e)
+        public override void OnUpdateFrame(UpdateFrameEventArgs args)
         {
-            base.OnUpdateFrame(e);
+            base.OnUpdateFrame(args);
 
-            var x = _quad2.Location.X + (_velocity*e.Time);
+            var x = _quad2.Location.X + (_velocity*args.Time);
+            var y = _quad2.Location.Y + (_velocity*args.Time);
 
-            _quad2.Location = new PointF((float)x, _quad2.Location.Y);
+            _quad2.Location = new PointF((float)x, (float)y);
 
+            if (x > Window.Width)
+                _quad2.Location = new PointF(0, _quad2.Location.Y);
+            if (y > Window.Height)
+                _quad2.Location = new PointF(_quad2.Location.X, 0);
+                //_quad2.Location = new PointF(0, (Window.Height + _quad2.Location.Y + 50) % Window.Height);
         }
     }
 }

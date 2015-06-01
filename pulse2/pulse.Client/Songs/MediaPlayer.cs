@@ -28,14 +28,17 @@ namespace pulse.Client.Songs
             _library = SongLibrary.Instance;
         }
 
+        public bool Visible { get; set; }
         public PointF Location { get; set; }
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
         public Color4 Colour { get; set; }
+        public float Depth { get; set; }
 
         public bool AutoPlay { get; set; }
 
         private Sound _currentSound;
+        private ChartGroup _currentChart;
         private SongLibrary _library;
 
         public Sound CurrentSound
@@ -54,6 +57,11 @@ namespace pulse.Client.Songs
                 if (AutoPlay)
                     _currentSound.Play();
             }
+        }
+
+        public ChartGroup CurrentChart
+        {
+            get { return _currentChart; }
         }
 
         public void Play()
@@ -76,7 +84,9 @@ namespace pulse.Client.Songs
 
         public void PlayRandom()
         {
-            _currentSound = _library.GetRandomSong();
+            var song = _library.GetRandomSong();
+            _currentSound = song.Item2;
+            _currentChart = song.Item1;
             if (_currentSound != null)
                 _currentSound.Play();
         }
