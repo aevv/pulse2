@@ -58,7 +58,7 @@ namespace pulse.Client.Screens
             var chart = SongLibrary.Instance.GetGroupChart(player.CurrentSong);
             var bgName = chart.Charts[0].BackgroundName;
             if (!string.IsNullOrEmpty(bgName))
-                _bg.ApplyTexture(TextureManager.LoadImage(chart.Files.First(file => file.FileName == bgName).Data));
+                _bg.ApplyTexture("Assets/bg.jpg");
         }
 
         public override void OnUpdateFrame(UpdateFrameEventArgs args)

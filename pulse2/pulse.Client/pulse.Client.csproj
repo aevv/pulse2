@@ -68,8 +68,14 @@
       <DependentUpon>DefaultAssets.resx</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="GameMaterial.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
+    <Compile Include="Graphics\Engine\IRenderer.cs" />
+    <Compile Include="Graphics\Engine\Renderer.cs" />
+    <None Include="Graphics\Engine\Shaders\VertexShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Graphics\FpsCounter.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
@@ -157,6 +163,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pulseicon.ico" />
+    <None Include="Graphics\Engine\Shaders\FragmentShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PulseIcon.ico" />
     <EmbeddedResource Include="DefaultAssets.resx">
       <Generator>ResXFileCodeGenerator</Generator>
