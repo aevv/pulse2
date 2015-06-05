@@ -76,6 +76,7 @@
     <None Include="Graphics\Engine\Shaders\VertexShader.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Graphics\Engine\Shader.cs" />
     <Compile Include="Graphics\FpsCounter.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
