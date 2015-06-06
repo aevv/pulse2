@@ -3,7 +3,7 @@ using Un4seen.Bass;
 
 namespace pulse.Client.Audio
 {
-    class Sound : IDisposable
+    public class Sound : IDisposable
     {
         private readonly int _handle;
         private readonly string _path;

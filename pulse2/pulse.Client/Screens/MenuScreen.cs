@@ -55,7 +55,7 @@ namespace pulse.Client.Screens
             //TODO: Refactor this hack
             var player = MediaPlayer.Instance;
             player.PlayRandom();
-            var chart = player.CurrentChart;
+            var chart = SongLibrary.Instance.GetGroupChart(player.CurrentSong);
             var bgName = chart.Charts[0].BackgroundName;
             if (!string.IsNullOrEmpty(bgName))
                 _bg.ApplyTexture(TextureManager.LoadImage(chart.Files.First(file => file.FileName == bgName).Data));

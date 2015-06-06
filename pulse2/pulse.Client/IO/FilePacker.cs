@@ -14,7 +14,11 @@ namespace pulse.Client.IO
         public void PackObjectToFile<T>(T obj, string path)
         {
             var dirInfo = new DirectoryInfo(path);
-            if (!dirInfo.Parent.Exists)
+
+            if (dirInfo.Parent != null)
+                dirInfo = dirInfo.Parent;
+
+            if (!dirInfo.Exists)
                 return;
 
             var serialised = JsonConvert.SerializeObject(obj);

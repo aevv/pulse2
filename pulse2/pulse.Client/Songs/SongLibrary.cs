@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using pulse.Client.Audio;
 using pulse.Client.IO;
@@ -34,7 +35,7 @@ namespace pulse.Client.Songs
         private readonly List<Song> _songs;
 
         // Temporary, honest :)
-        public Tuple<ChartGroup, Sound> GetRandomSong()
+        public Song GetRandomSong()
         {
             if (_songs.Count == 0)
                 return null;
@@ -42,12 +43,21 @@ namespace pulse.Client.Songs
             var rand = new Random();
             var index = rand.Next(0, _songs.Count);
             var unpacker = new FilePacker();
-            var chartGroup = unpacker.DeserialisePackedFile<ChartGroup>(_songs[index].FileName);
-            chartGroup.PgcName = _songs[index].FileName;
-            _songs[index].GroupName = chartGroup.GroupName;
-            _songs[index].GroupCreator = chartGroup.GroupCreator;
+            var matchingSong = _songs[index];
+
+            var chartGroup = unpacker.DeserialisePackedFile<ChartGroup>(matchingSong.FileName);
+            chartGroup.PgcName = matchingSong.FileName;
+
             index = rand.Next(0, chartGroup.Charts.Count);
-            return new Tuple<ChartGroup, Sound>(chartGroup, AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data));
+            return new Song { Sound = AudioManager.LoadSound(chartGroup.Files.First(f => f.FileName == chartGroup.Charts[index].FileName).Data), FileName = matchingSong.FileName,
+                GroupCreator = matchingSong.GroupCreator, GroupName = matchingSong.GroupName };
+        }
+
+        public ChartGroup GetGroupChart(Song song)
+        {
+            var unpacker = new FilePacker();
+
+            return unpacker.DeserialisePackedFile<ChartGroup>(song.FileName);
         }
 
         public void Scan(string directory)

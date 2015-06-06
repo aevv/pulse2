@@ -37,58 +37,53 @@ namespace pulse.Client.Songs
 
         public bool AutoPlay { get; set; }
 
-        private Sound _currentSound;
-        private ChartGroup _currentChart;
+        public float Volume { get; set; }
+
+        private Song _currentSong;
         private SongLibrary _library;
 
-        public Sound CurrentSound
+        public Song CurrentSong
         {
-            get { return _currentSound; }
+            get { return _currentSong; }
             set
             {
-                if (_currentSound != null)
-                    _currentSound.Stop();
+                if (_currentSong != null)
+                    _currentSong.Sound.Stop();
 
                 if (value == null)
                     return;
 
-                _currentSound = value;
+                _currentSong = value;
                 
                 if (AutoPlay)
-                    _currentSound.Play();
+                    _currentSong.Sound.Play();
             }
-        }
-
-        public ChartGroup CurrentChart
-        {
-            get { return _currentChart; }
         }
 
         public void Play()
         {
-            if (_currentSound != null)
-                _currentSound.Play();
+            if (_currentSong != null)
+                _currentSong.Sound.Play();
         }
 
         public void Pause()
         {
-            if (_currentSound != null)
-                _currentSound.Pause();
+            if (_currentSong != null)
+                _currentSong.Sound.Pause();
         }
 
         public void Stop()
         {
-            if (_currentSound != null)
-                _currentSound.Stop();
+            if (_currentSong != null)
+                _currentSong.Sound.Stop();
         }
 
         public void PlayRandom()
         {
-            var song = _library.GetRandomSong();
-            _currentSound = song.Item2;
-            _currentChart = song.Item1;
-            if (_currentSound != null)
-                _currentSound.Play();
+            _currentSong = _library.GetRandomSong(); 
+
+            if (_currentSong != null)
+                _currentSong.Sound.Play();
         }
 
         public void OnRenderFrame(FrameEventArgs args)
