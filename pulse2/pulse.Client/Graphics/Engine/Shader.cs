@@ -13,6 +13,12 @@ namespace pulse.Client.Graphics.Engine
         private int _vertexShaderId;
         private int _fragmentShaderId;
         private int _shaderProgramId;
+        private int _id;
+
+        public int TransformPointer
+        {
+            get { return _id; }
+        }
 
         public int ProgramId { get { return _shaderProgramId; } }
 
@@ -47,6 +53,8 @@ namespace pulse.Client.Graphics.Engine
 
             GL.DeleteShader(_vertexShaderId);
             GL.DeleteShader(_fragmentShaderId);
+
+            _id = GL.GetUniformLocation(ProgramId, "transform");
         }
     }
 }

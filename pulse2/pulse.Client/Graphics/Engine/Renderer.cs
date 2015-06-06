@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,14 +17,15 @@ namespace pulse.Client.Graphics.Engine
         private Shader _shader;
         private double _time;
         private bool _initialised;
-        private int textureId = 0;
+        private int _textureId = 0;
+        private int _transformLoc;
 
         private float[] vertices =
         {
-            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
-            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
-            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
-            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f
+            1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
+            1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
+            -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
+            -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f
         };
 
         private int[] indices =
@@ -80,17 +82,23 @@ namespace pulse.Client.Graphics.Engine
 
             _shader = new Shader("Graphics\\Engine\\Shaders\\VertexShader.glsl", "Graphics\\Engine\\Shaders\\FragmentShader.glsl");
 
-            textureId = TextureManager.LoadImage("Assets\\bg.jpg");
+            _textureId = TextureManager.LoadImage("Assets\\bg.jpg");
 
             _initialised = true;
         }
+
+        private float x, y;
         public void OnRenderFrame(FrameEventArgs args)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             GL.UseProgram(_shader.ProgramId);
 
-            GL.BindTexture(TextureTarget.Texture2D, textureId);
+            var m4 = Matrix4.CreateTranslation(x+=0.01f, y += 0.01f, 0.0f);
+
+            GL.UniformMatrix4(_shader.TransformPointer, false, ref m4);
+
+            GL.BindTexture(TextureTarget.Texture2D, _textureId);
             GL.BindVertexArray(vao);
             unsafe
             {
