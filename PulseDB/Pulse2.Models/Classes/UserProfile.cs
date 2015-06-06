@@ -8,6 +8,7 @@ namespace Pulse2DataLayer.Models.Classes
     {
         [NotNullNotEmpty]
         public virtual Guid UserId { get; set; }
+        [NotNullNotEmpty]
         public virtual int UserProfileId { get; set; }
         public virtual string Firstname { get; set; }
         public virtual string Lastname { get; set; }

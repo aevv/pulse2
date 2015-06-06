@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentNHibernate.Conventions.Helpers;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using Pulse2DataLayer.Models.Classes;
 
 namespace Pulse2DataAcessLayer.Maps

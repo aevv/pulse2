@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Classes\Membership.cs" />
     <Compile Include="Classes\Role.cs" />
+    <Compile Include="Classes\Session.cs" />
     <Compile Include="Classes\UserProfile.cs" />
     <Compile Include="Classes\UsersInRole.cs" />
     <Compile Include="Interfaces\IModel.cs" />

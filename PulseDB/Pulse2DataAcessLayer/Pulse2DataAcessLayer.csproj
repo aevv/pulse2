@@ -51,9 +51,10 @@
   <ItemGroup>
     <Compile Include="Maps\MembershipMap.cs" />
     <Compile Include="Maps\RoleMap.cs" />
-    <Compile Include="Maps\UserInRole.cs" />
+    <Compile Include="Maps\SessionMap.cs" />
+    <Compile Include="Maps\UserInRoleMap.cs" />
     <Compile Include="Maps\UserMap.cs" />
-    <Compile Include="Maps\UserProfile.cs" />
+    <Compile Include="Maps\UserProfileMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionFactory\SqlServerSessionFactory.cs" />
   </ItemGroup>
