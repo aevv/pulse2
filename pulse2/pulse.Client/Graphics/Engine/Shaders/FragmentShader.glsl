@@ -9,5 +9,12 @@ uniform sampler2D textureSample;
 
 void main()
 {
-    colour = texture(textureSample, TexCoord);// * vec4(vertexColour, 1.0f);
+	if (TexCoord.x == 0 && TexCoord.y == 0)
+	{
+		colour = vec4(vertexColour, 1.0f);
+	}
+	else
+	{
+		colour = texture(textureSample, TexCoord) * vec4(vertexColour, 1.0f);
+	}
 }

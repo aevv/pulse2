@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES30;
+using pulse.Client.Graphics.Engine.Util;
 
 namespace pulse.Client.Graphics.Engine
 {
@@ -19,66 +20,6 @@ namespace pulse.Client.Graphics.Engine
         private bool _initialised;
         private int _textureId = 0;
         private int _transformLoc;
-
-        private float[] vertices =
-        {
-            // Front
-            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-
-            // Right side
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            0.5f, 0.5f, -0.65f, 0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            0.5f, -0.5f, -0.65f, 0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-
-            // Left Side
-            -0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            -0.5f, 0.5f, -0.65f, 0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -0.5f, -0.5f, -0.65f, 0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f, -0.5f, 0f, 1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-
-            // Top
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            0.5f, 0.5f, -0.65f, 0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -0.5f, 0.5f, -0.65f, 0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-
-            // Bottom
-            0.5f, -0.5f, 0.0f,1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            0.5f, -0.5f, -0.65f,0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -0.5f, -0.5f, -0.65f,0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f,1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-            // Back
-            0.5f,  0.5f, -0.65f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            0.5f, -0.5f, -0.65f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -0.5f, -0.5f, -0.65f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -0.5f,  0.5f, -0.65f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f,
-        };
-
-        private int[] indices =
-        {
-            // Front
-            0, 1, 3,
-            1, 2, 3,
-            // Right
-            4, 5, 7,
-            5, 6, 7,
-            //Left
-            8, 9, 11,
-            9, 10, 11,
-            //Top
-            12, 13, 15,
-            13, 14, 15,
-            //Bottom
-            16, 17, 19,
-            17, 18, 19,
-            //Back
-            20, 21, 23,
-            21, 22, 23
-        };
 
         private int vbo;
         private int vao;
@@ -95,7 +36,7 @@ namespace pulse.Client.Graphics.Engine
 
             GL.Viewport(0, 0, 1024, 768);
 
-            //GL.Enable(EnableCap.Texture2D);
+            GL.Enable(EnableCap.Texture2D);
             GL.Enable(EnableCap.DepthTest);
 
             GL.GenVertexArrays(1, out vao);
@@ -106,16 +47,16 @@ namespace pulse.Client.Graphics.Engine
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
             unsafe
             {
-                fixed (float* ptr = vertices)
+                fixed (float* ptr = Shapes.CubeVertices)
                 {
-                    GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), (IntPtr)ptr, BufferUsageHint.StaticDraw);
+                    GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Shapes.CubeVertices.Length * sizeof(float)), (IntPtr)ptr, BufferUsageHint.StaticDraw);
                 }
 
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
 
-                fixed (int* ptr = indices)
+                fixed (int* ptr = Shapes.CubeIndices)
                 {
-                    GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(int)), (IntPtr)ptr, BufferUsageHint.StaticDraw);
+                    GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(Shapes.CubeIndices.Length * sizeof(int)), (IntPtr)ptr, BufferUsageHint.StaticDraw);
                 }
             }
             GL.BindVertexArray(vao);
@@ -141,40 +82,27 @@ namespace pulse.Client.Graphics.Engine
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            //Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, 1024, 768, 0, -10, 10);
-            //GL.MatrixMode(MatrixMode.Projection);
-            //GL.PushMatrix();
-            //GL.LoadMatrix(ref ortho);
-
-            //_screenManager.Active.OnRenderFrame(e);
-
-            //_fpsCounter.OnRenderFrame(e);
-
-            //GL.PopMatrix();
-
             GL.UseProgram(_shader.ProgramId);
 
 
             var m4 = Matrix4.CreateTranslation(0, 0, 0)
                      *Matrix4.CreateRotationY(rY += 0.01f)
-                     *Matrix4.CreateRotationX(rX += 0.01f);
+                     *Matrix4.CreateRotationX(rX += 0.015f);
             var view = Matrix4.CreateTranslation(0, 0, -3f);
-            //var projection = Matrix4.CreateOrthographicOffCenter(0, 1024, 0, 768, 0.1f, 100f);
             var projection = Matrix4.CreatePerspectiveFieldOfView(1, 1024 / 768, 0.1f, 100f);
-
-
+            
             _shader.ApplyMatrices(view, projection);
             _shader.ApplyModelMatrix(m4);
 
             GL.UniformMatrix4(_shader.TransformPointer, false, ref m4);
 
-            //GL.BindTexture(TextureTarget.Texture2D, _textureId);
+            GL.BindTexture(TextureTarget.Texture2D, _textureId);
             GL.BindVertexArray(vao);
             unsafe
             {
-                fixed (int* ptr = indices)
+                fixed (int* ptr = Shapes.CubeIndices)
                 {
-                    GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, (IntPtr)ptr);
+                    GL.DrawElements(PrimitiveType.Triangles, Shapes.CubeIndices.Length, DrawElementsType.UnsignedInt, (IntPtr)ptr);
                 }
             }
             GL.BindVertexArray(0);
