@@ -22,10 +22,10 @@ namespace pulse.Client.Graphics.Engine
 
         private float[] vertices =
         {
-            1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
-            1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
-            -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
-            -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f
+            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
+            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
+            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 0.0f
         };
 
         private int[] indices =
@@ -46,6 +46,8 @@ namespace pulse.Client.Graphics.Engine
             Console.WriteLine(GL.GetInteger(GetPName.MaxVertexAttribs));
 
             GL.ClearColor(Color4.SlateBlue);
+
+            GL.Viewport(0, 0, 1024, 768);
 
             GL.Enable(EnableCap.Texture2D);
 
@@ -87,14 +89,31 @@ namespace pulse.Client.Graphics.Engine
             _initialised = true;
         }
 
-        private float x, y;
+        private float x, y, z, r;
         public void OnRenderFrame(FrameEventArgs args)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit); 
+            
+            //Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, 1024, 768, 0, -10, 10);
+            //GL.MatrixMode(MatrixMode.Projection);
+            //GL.PushMatrix();
+            //GL.LoadMatrix(ref ortho);
+
+            //_screenManager.Active.OnRenderFrame(e);
+
+            //_fpsCounter.OnRenderFrame(e);
+
+            //GL.PopMatrix();
 
             GL.UseProgram(_shader.ProgramId);
 
-            var m4 = Matrix4.CreateTranslation(x+=0.01f, y += 0.01f, 0.0f);
+            var m4 = Matrix4.CreateTranslation(1, 1, 1);
+            var view = Matrix4.CreateTranslation(0, 0, -3f);
+            var projection = Matrix4.CreatePerspectiveFieldOfView(1.0f, 1024f/768f, 0.1f, 100f);
+
+
+            _shader.ApplyMatrices(view, projection);
+            _shader.ApplyModelMatrix(m4);
 
             GL.UniformMatrix4(_shader.TransformPointer, false, ref m4);
 

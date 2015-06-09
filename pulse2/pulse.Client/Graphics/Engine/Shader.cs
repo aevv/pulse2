@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 using OpenTK.Graphics.ES30;
 
 namespace pulse.Client.Graphics.Engine
@@ -55,6 +56,22 @@ namespace pulse.Client.Graphics.Engine
             GL.DeleteShader(_fragmentShaderId);
 
             _id = GL.GetUniformLocation(ProgramId, "transform");
+        }
+
+        public void ApplyMatrices(Matrix4 view, Matrix4 projection)
+        {
+            var viewLoc = GL.GetUniformLocation(_shaderProgramId, "view");
+            var projectionLoc = GL.GetUniformLocation(_shaderProgramId, "projection");
+
+            GL.UniformMatrix4(viewLoc, false, ref view);
+            GL.UniformMatrix4(projectionLoc, false, ref projection);
+        }
+
+        public void ApplyModelMatrix(Matrix4 model)
+        {
+            var modelLoc = GL.GetUniformLocation(_shaderProgramId, "model");
+
+            GL.UniformMatrix4(modelLoc, false, ref model);
         }
     }
 }
