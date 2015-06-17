@@ -28,12 +28,12 @@ namespace pulse.Client.Screens
 
         public string Title { get { return _title; } set { _title = value; } }
 
-        protected List<IRenderable> Renderables
+        public List<IRenderable> Renderables
         {
             get { return _renderables; }
         }
 
-        protected List<IUpdateable> Updateables
+        public List<IUpdateable> Updateables
         {
             get { return _updateables; }
         } 
@@ -48,7 +48,7 @@ namespace pulse.Client.Screens
         {
             foreach (var renderable in _renderables)
             {
-                renderable.OnRenderFrame(args);
+                //renderable.OnRenderFrame(args);
             }
         }
 

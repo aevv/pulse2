@@ -5,6 +5,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using pulse.Client.Graphics;
+using pulse.Client.Graphics.Engine;
 using pulse.Client.Input;
 using pulse.Client.Input.Events;
 using pulse.Client.Logging;
@@ -18,8 +19,7 @@ namespace pulse.Client
         private readonly ScreenManager _screenManager;
         private readonly InputHandler _inputHandler;
         private readonly LogTracer _trace;
-
-        private FpsCounter _fpsCounter;
+        private readonly IRenderer _renderer;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -36,25 +36,17 @@ namespace pulse.Client
             VSync = _config.Vsync ? VSyncMode.On : VSyncMode.Off;
 
             Icon = DefaultAssets.PulseIcon;
+
+            _renderer = new Renderer();
         }
 
         protected override void OnLoad(EventArgs e)
         {
-
             base.OnLoad(e);
-            
-            GL.Enable(EnableCap.Texture2D);
-            GL.Enable(EnableCap.Blend);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
-            GL.Enable(EnableCap.DepthTest);
-            GL.DepthFunc(DepthFunction.Lequal);
-
-            GL.ClearColor(Color4.SlateGray);
+            _renderer.Initialise();
             
             LoadScreens();
-
-            _fpsCounter = new FpsCounter();
         }
 
         protected override void OnResize(EventArgs e)
@@ -62,10 +54,7 @@ namespace pulse.Client
             _config.Height = Height;
             _config.Width = Width;
 
-            GL.Viewport(new Size(Width, Height));
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            GL.Ortho(0, Width, 0, Height, -10, 10);
+            _renderer.Resize(Width, Height);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -76,8 +65,6 @@ namespace pulse.Client
             
             _screenManager.Active.OnUpdateFrame(updateArgs);
 
-            _fpsCounter.OnUpdateFrame(updateArgs);
-
             _inputHandler.SwapBuffers();
         }
 
@@ -85,18 +72,20 @@ namespace pulse.Client
         {
             base.OnRenderFrame(e);
 
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            _renderer.OnRenderFrame(e, _screenManager.Active);
 
-            Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, -10, 10);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.PushMatrix();
-            GL.LoadMatrix(ref ortho);
+            //GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            _screenManager.Active.OnRenderFrame(e);
+            //Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, -10, 10);
+            //GL.MatrixMode(MatrixMode.Projection);
+            //GL.PushMatrix();
+            //GL.LoadMatrix(ref ortho);
 
-            _fpsCounter.OnRenderFrame(e);
+            //_screenManager.Active.OnRenderFrame(e);
 
-            GL.PopMatrix();
+            //_fpsCounter.OnRenderFrame(e);
+
+            //GL.PopMatrix();
             SwapBuffers();
         }
 

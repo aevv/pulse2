@@ -17,21 +17,18 @@ namespace pulse.Client.Input
         public event ClickEventHandler OnClick;
         public Color4 TextColour { get { return _text.Colour; } set { _text.Colour = value; } }
 
-        public Button(PointF location, SizeF size, string text, float depth = 0.0f)
+        public Button(Vector3 point, SizeF size, string text)
         {
-
-            Location = location;
+            Origin = point;
             Size = size;
-            Boundaries = new RectangleF(location, size);
+            Boundaries = new RectangleF(new PointF(Origin.X, Origin.Y), size);
             _text = new RawText(text, true);
-            _text.Location = new PointF(Location.X + (Size.Width/4), Location.Y + Size.Height/8);
-            Depth = depth;
-            _text.Depth = depth + 0.1f;
+            _text.Origin = new Vector3(Origin.X + (Size.Width / 4), Origin.Y + Size.Height / 8, Origin.Z + 0.1f);
             // TODO: Config this
             ApplyTexture("Assets\\button.png");
         }
 
-        public Button(float x, float y, float width, float height, string text, float depth = 0.0f) : this(new PointF(x, y), new SizeF(width, height), text, depth)
+        public Button(float x, float y, float z, float width, float height, string text) : this(new Vector3(x, y, z), new SizeF(width, height), text)
         {
         }
 
@@ -49,13 +46,6 @@ namespace pulse.Client.Input
         {
             if (OnClick != null)
                 OnClick();
-        }
-
-        public override void OnRenderFrame(FrameEventArgs args)
-        {
-            base.OnRenderFrame(args);
-
-            _text.OnRenderFrame(args);
         }
 
         public void OnUpdateFrame(UpdateFrameEventArgs args)

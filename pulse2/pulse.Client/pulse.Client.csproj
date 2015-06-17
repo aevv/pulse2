@@ -67,8 +67,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DefaultAssets.resx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameMaterial.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
     <Compile Include="Graphics\Engine\IRenderer.cs" />
@@ -77,8 +77,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Compile Include="Graphics\Engine\Shader.cs" />
+    <Compile Include="Graphics\Engine\Strategies\CubeRenderStrategy.cs" />
+    <Compile Include="Graphics\Engine\Strategies\IRenderStrategy.cs" />
     <Compile Include="Graphics\Engine\Util\Shapes.cs" />
-    <Compile Include="Graphics\FpsCounter.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
     <Compile Include="Graphics\Interface\IUpdateable.cs" />

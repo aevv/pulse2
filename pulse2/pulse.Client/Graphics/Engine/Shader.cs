@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,12 @@ namespace pulse.Client.Graphics.Engine
         private int _fragmentShaderId;
         private int _shaderProgramId;
         private int _id;
+
+        private Matrix4 _view;
+        private Matrix4 _projection;
+
+        public Matrix4 ViewMatrix { get { return _view; } }
+        public Matrix4 ProjectionMatrix { get { return _projection; } }
 
         public int TransformPointer
         {
@@ -60,6 +67,9 @@ namespace pulse.Client.Graphics.Engine
 
         public void ApplyMatrices(Matrix4 view, Matrix4 projection)
         {
+            _view = view;
+            _projection = projection;
+
             var viewLoc = GL.GetUniformLocation(_shaderProgramId, "view");
             var projectionLoc = GL.GetUniformLocation(_shaderProgramId, "projection");
 
@@ -72,6 +82,13 @@ namespace pulse.Client.Graphics.Engine
             var modelLoc = GL.GetUniformLocation(_shaderProgramId, "model");
 
             GL.UniformMatrix4(modelLoc, false, ref model);
+        }
+
+        public void ApplyScaleMatrix(Matrix4 scale)
+        {
+            var modelLoc = GL.GetUniformLocation(_shaderProgramId, "scale");
+
+            GL.UniformMatrix4(modelLoc, false, ref scale);
         }
     }
 }
