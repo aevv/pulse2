@@ -74,18 +74,6 @@ namespace pulse.Client
 
             _renderer.OnRenderFrame(e, _screenManager.Active);
 
-            //GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            //Matrix4 ortho = Matrix4.CreateOrthographicOffCenter(0, Width, Height, 0, -10, 10);
-            //GL.MatrixMode(MatrixMode.Projection);
-            //GL.PushMatrix();
-            //GL.LoadMatrix(ref ortho);
-
-            //_screenManager.Active.OnRenderFrame(e);
-
-            //_fpsCounter.OnRenderFrame(e);
-
-            //GL.PopMatrix();
             SwapBuffers();
         }
 

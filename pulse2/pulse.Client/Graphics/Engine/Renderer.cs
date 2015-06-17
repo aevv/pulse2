@@ -45,6 +45,7 @@ namespace pulse.Client.Graphics.Engine
 
             GL.Enable(EnableCap.Texture2D);
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
             GL.DepthFunc(DepthFunction.Lequal);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
 
@@ -72,7 +73,7 @@ namespace pulse.Client.Graphics.Engine
 
             var view = Matrix4.CreateTranslation(0, 0, -3f);
             //var projection = Matrix4.CreatePerspectiveFieldOfView(1f, _screenSize.GetAspectRatio(), 0.1f, 400f);
-            var projection = Matrix4.CreateOrthographicOffCenter(0, 1024f, 768f, 0, -10f, 100f);
+            var projection = Matrix4.CreateOrthographicOffCenter(0, _screenSize.Width, _screenSize.Height, 0, -10f, 100f);
             _shader.ApplyMatrices(view, projection);
 
             foreach (var renderable in screen.Renderables)

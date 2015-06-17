@@ -26,7 +26,7 @@ namespace pulse.Client.Screens
             _bg = new Background();
             Renderables.Add(_bg);
 
-            _btnPlay = new Button(0, 0, 10, 300, 100, "Play");
+            _btnPlay = new Button(Window.Width / 2 - 100, Window.Height / 2 + 100, 0, 200, 50, "Play");
             _btnPlay.OnClick += Play;
             _btnPlay.Colour = Color4.DeepSkyBlue;
             Renderables.Add(_btnPlay);
@@ -65,12 +65,6 @@ namespace pulse.Client.Screens
         public override void OnUpdateFrame(UpdateFrameEventArgs args)
         {
             base.OnUpdateFrame(args);
-            if (_btnPlay.Origin.X > 1024)
-                _btnPlay.Origin = new Vector3(0, _btnPlay.Origin.Y, _btnPlay.Origin.Z);
-            else
-                _btnPlay.Origin = new Vector3(_btnPlay.Origin.X + 5, _btnPlay.Origin.Y, _btnPlay.Origin.Z);
-
-            Console.WriteLine(_btnPlay.Origin.X);
         }
 
         public override void OnRenderFrame(FrameEventArgs args)
