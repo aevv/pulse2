@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
@@ -16,12 +17,6 @@ namespace pulse.Client.Graphics.Engine
         private int _fragmentShaderId;
         private int _shaderProgramId;
         private int _id;
-
-        private Matrix4 _view;
-        private Matrix4 _projection;
-
-        public Matrix4 ViewMatrix { get { return _view; } }
-        public Matrix4 ProjectionMatrix { get { return _projection; } }
 
         public int TransformPointer
         {
@@ -65,30 +60,18 @@ namespace pulse.Client.Graphics.Engine
             _id = GL.GetUniformLocation(ProgramId, "transform");
         }
 
-        public void ApplyMatrices(Matrix4 view, Matrix4 projection)
+        public void ApplyMatrix(Matrix4 matrix, string name)
         {
-            _view = view;
-            _projection = projection;
+            var loc = GL.GetUniformLocation(_shaderProgramId, name);
 
-            var viewLoc = GL.GetUniformLocation(_shaderProgramId, "view");
-            var projectionLoc = GL.GetUniformLocation(_shaderProgramId, "projection");
-
-            GL.UniformMatrix4(viewLoc, false, ref view);
-            GL.UniformMatrix4(projectionLoc, false, ref projection);
+            GL.UniformMatrix4(loc, false, ref matrix);
         }
 
-        public void ApplyModelMatrix(Matrix4 model)
+        public void ApplyLighting(Color colour)
         {
-            var modelLoc = GL.GetUniformLocation(_shaderProgramId, "model");
+            var colourLoc = GL.GetUniformLocation(_shaderProgramId, "lightColour");
 
-            GL.UniformMatrix4(modelLoc, false, ref model);
-        }
-
-        public void ApplyScaleMatrix(Matrix4 scale)
-        {
-            var modelLoc = GL.GetUniformLocation(_shaderProgramId, "scale");
-
-            GL.UniformMatrix4(modelLoc, false, ref scale);
+            GL.Uniform3(colourLoc, new Vector3(colour.R / 255f, colour.G  / 255f, colour.B / 255f));
         }
     }
 }

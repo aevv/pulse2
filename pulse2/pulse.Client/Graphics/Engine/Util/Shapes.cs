@@ -17,16 +17,16 @@ namespace pulse.Client.Graphics.Engine.Util
         public static readonly float[] CubeVertices =
         {
             // Front
-            1f,  1f, 0f,   1f, 1f, 1f,   1f, 1f,
-            1f, 0f, 0f,    1f, 1f, 1f,   1f, 0f,
-            0f, 0f, 0f,    1f, 1f, 1f,   0f, 0f,
-            0f,  1f, 0f,   1f, 1f, 1f,   0f, 1f,
+            1f,  1f, 0f,    1f, 1f, 1f,   1f, 1f,
+            1f, 0f, 0f,     1f, 1f, 1f,   1f, 0f,
+            0f, 0f, 0f,     1f, 1f, 1f,   0f, 0f,
+            0f,  1f, 0f,    1f, 1f, 1f,   0f, 1f,
 
             // Right side
-            1f, 1f, 0f,    1f, 1f, 1f,   1f, 0f,
-            1f, 1f, -0.1f, 1f, 1f, 1f,   1f, 1f,
-            1f, 0f, -0.1f, 1f, 1f, 1f,   0f, 1f,
-            1f, 0f, 0f,    1f, 1f, 1f,   0f, 0f,
+            1f, 1f, 0f,     1f, 1f, 1f,   1f, 0f,
+            1f, 1f, -0.1f,  1f, 1f, 1f,   1f, 1f,
+            1f, 0f, -0.1f,  1f, 1f, 1f,   0f, 1f,
+            1f, 0f, 0f,     1f, 1f, 1f,   0f, 0f,
 
             // Left Side
             0f, 1f, 0f,     1f, 1f, 1f,   1f, 0f,
@@ -46,10 +46,10 @@ namespace pulse.Client.Graphics.Engine.Util
             0f, 0f, -0.1f,  1f, 1f, 1f,   0f, 1f,
             0f, 0f, 0f,     1f, 1f, 1f,   0f, 0f,
             // Back
-            1f,  1f, -0.1f, 1f, 1f, 1f,   1f, 0f,
+            1f, 1f, -0.1f,  1f, 1f, 1f,   1f, 0f,
             1f, 0f, -0.1f,  1f, 1f, 1f,   1f, 1f,
             0f, 0f, -0.1f,  1f, 1f, 1f,   0f, 1f,
-            0f,  1f, -0.1f, 1f, 1f, 1f,   0f, 0f,
+            0f, 1f, -0.1f,  1f, 1f, 1f,   0f, 0f,
         };
 
         public static readonly int[] CubeIndices = {

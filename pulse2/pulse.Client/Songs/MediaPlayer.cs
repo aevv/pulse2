@@ -87,10 +87,5 @@ namespace pulse.Client.Songs
             if (_currentSong != null)
                 _currentSong.Sound.Play();
         }
-
-        public void OnRenderFrame(FrameEventArgs args)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

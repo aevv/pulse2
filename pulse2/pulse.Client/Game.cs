@@ -37,7 +37,7 @@ namespace pulse.Client
 
             Icon = DefaultAssets.PulseIcon;
 
-            _renderer = new Renderer();
+            _renderer = new Renderer(new Size(Width, Height));
         }
 
         protected override void OnLoad(EventArgs e)

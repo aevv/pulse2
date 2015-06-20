@@ -8,30 +8,30 @@ using OpenTK;
 using OpenTK.Graphics;
 using pulse.Client.Graphics.Engine.Util;
 using pulse.Client.Graphics.Interface;
+using pulse.Client.Input.Events;
 
 namespace pulse.Client.Graphics
 {
-    class Animation : IRenderable
+    class Animation : IRenderable, IUpdateable
     {
         public bool Visible { get; set; }
-        public Vector3 Origin { get { return _frameProxy.Origin; } set { _frameProxy.Origin = value; } }
+        public Vector3 Origin { get; set; }
         public int TextureId { get; private set; }
-        public SizeF Size { get { return _frameProxy.Size; } set { _frameProxy.Size = value; } }
-        public float Rotation { get { return _frameProxy.Rotation; } set { _frameProxy.Rotation = value; } }
-        public Color4 Colour { get { return _frameProxy.Colour; } set { _frameProxy.Colour = value; }}
+        public SizeF Size { get; set; }
+        public float Rotation { get; set; }
+        public Color4 Colour { get; set; }
         public ShapeType Shape { get; set; }
-        public float Depth { get { return _frameProxy.Depth; } set { _frameProxy.Depth = value; } }
         public bool Loop { get; set; }
 
         private readonly List<int> _textureIds;
         private double _frameTimer;
         private int _currentFrame;
-        private Quad _frameProxy;
 
         public Animation(Vector3 point, SizeF size)
         {
+            Origin = point;
+            Size = size;
             _textureIds = new List<int>();
-            _frameProxy = new Quad(point, size);
             Visible = true;
             Shape = ShapeType.Cube;
         }
@@ -43,14 +43,14 @@ namespace pulse.Client.Graphics
             _currentFrame = 0;
         }
 
-        public void OnRenderFrame(FrameEventArgs args)
+        public void OnUpdateFrame(UpdateFrameEventArgs args)
         {
             if (!Visible)
                 return;
 
             _frameTimer += args.Time;
 
-            if (_frameTimer >= 1/20d)
+            if (_frameTimer >= 1 / 20d)
             {
                 _frameTimer = 0;
 
@@ -67,9 +67,7 @@ namespace pulse.Client.Graphics
                 }
             }
 
-            _frameProxy.ApplyTexture(_textureIds[_currentFrame]);
-
-            //_frameProxy.OnRenderFrame(args);
+            TextureId = _textureIds[_currentFrame];
         }
     }
 }

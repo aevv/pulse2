@@ -16,7 +16,7 @@ namespace pulse.Client.Input
         public RectangleF Boundaries { get; set; }
         public event ClickEventHandler OnClick;
         public Color4 TextColour { get { return _text.Colour; } set { _text.Colour = value; } }
-
+        public RawText RawText { get { return _text; } }
         public Button(Vector3 point, SizeF size, string text)
         {
             Origin = point;

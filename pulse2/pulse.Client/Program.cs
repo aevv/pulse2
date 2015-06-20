@@ -16,7 +16,7 @@ namespace pulse.Client
             var loadSplash = new LoadingSplashForm(new PulseLoader());
             loadSplash.ShowDialog();
 
-            new Game(config).Run(120, 120);
+            new Game(config).Run(120, 0);
         }
     }
 }

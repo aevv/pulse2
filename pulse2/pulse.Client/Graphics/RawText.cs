@@ -11,7 +11,6 @@ namespace pulse.Client.Graphics
     class RawText : IRenderable
     {
         private string _text;
-        private int _textureId;
 
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
@@ -33,7 +32,7 @@ namespace pulse.Client.Graphics
             {
                 _text = value;
                 SizeF textSize;
-                _textureId = TextureManager.LoadRawTextImage(_text, Font, out textSize);
+                TextureId = TextureManager.LoadRawTextImage(_text, Font, out textSize);
                 Size = textSize;
             }
         }

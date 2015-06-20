@@ -24,12 +24,10 @@ namespace pulse.Client.Graphics.Engine
 
         private Size _screenSize;
 
-        private float x, y, z, rY, rX;
-
-        public Renderer()
+        public Renderer(Size screenSize)
         {
             _strategies = new Dictionary<ShapeType, IRenderStrategy>();
-            _screenSize = new Size(1024, 768);
+            _screenSize = screenSize;
         }
 
         public void Initialise()
@@ -57,6 +55,7 @@ namespace pulse.Client.Graphics.Engine
         public void Resize(int width, int height)
         {
             _screenSize = new Size(width, height);
+            GL.Viewport(0, 0, _screenSize.Width, _screenSize.Height);
         }
 
         private void SetupStrategies()
@@ -70,12 +69,18 @@ namespace pulse.Client.Graphics.Engine
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.UseProgram(_shader.ProgramId);
-
             var view = Matrix4.CreateTranslation(0, 0, -3f);
-            //var projection = Matrix4.CreatePerspectiveFieldOfView(1f, _screenSize.GetAspectRatio(), 0.1f, 400f);
             var projection = Matrix4.CreateOrthographicOffCenter(0, _screenSize.Width, _screenSize.Height, 0, -10f, 100f);
-            _shader.ApplyMatrices(view, projection);
 
+            _shader.ApplyMatrix(view, "view");
+            _shader.ApplyMatrix(projection, "projection");
+            _shader.ApplyLighting(Color.White);
+
+            Render(args, screen);
+        }
+
+        private void Render(FrameEventArgs args, BaseScreen screen)
+        {
             foreach (var renderable in screen.Renderables)
             {
                 _strategies[renderable.Shape].Render(_shader, renderable);
