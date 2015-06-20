@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using OpenTK;
 
 namespace pulse.Client.Graphics
 {
@@ -6,7 +7,7 @@ namespace pulse.Client.Graphics
     {
         public Background()
         {
-            Location = new PointF(0, 0);
+            Origin = new Vector3(0, 0, -9f);
             Size = new SizeF(1024f, 768f);
             Depth = -7;
         }

@@ -1,15 +1,15 @@
 ﻿using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
+using pulse.Client.Graphics.Engine.Util;
 
 namespace pulse.Client.Graphics.Interface
 {
     interface IRenderable
     {
-        bool Visible { get; set; }
-        float Depth { get; set; }
-        Color4 Colour { get; set; }
-
-        void OnRenderFrame(FrameEventArgs args);
+        ShapeType Shape { get; }
+        Vector3 Origin { get; set; }
+        SizeF Size { get; set; }
+        int TextureId { get; }
     }
 }

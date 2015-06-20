@@ -67,10 +67,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DefaultAssets.resx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Graphics\Background.cs" />
-    <Compile Include="Graphics\FpsCounter.cs" />
+    <Compile Include="Graphics\Engine\IRenderer.cs" />
+    <Compile Include="Graphics\Engine\Renderer.cs" />
+    <None Include="Graphics\Engine\Shaders\VertexShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Graphics\Engine\Shader.cs" />
+    <Compile Include="Graphics\Engine\Strategies\CubeRenderStrategy.cs" />
+    <Compile Include="Graphics\Engine\Strategies\IRenderStrategy.cs" />
+    <Compile Include="Graphics\Engine\Util\Shapes.cs" />
     <Compile Include="Graphics\Interface\IRenderable.cs" />
     <Compile Include="Graphics\Interface\ITexturable.cs" />
     <Compile Include="Graphics\Interface\IUpdateable.cs" />
@@ -130,7 +139,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\bg.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Burst\burst0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -157,6 +166,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pulseicon.ico" />
+    <None Include="Graphics\Engine\Shaders\FragmentShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PulseIcon.ico" />
     <EmbeddedResource Include="DefaultAssets.resx">
       <Generator>ResXFileCodeGenerator</Generator>

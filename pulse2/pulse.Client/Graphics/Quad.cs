@@ -1,16 +1,18 @@
 ﻿using System.Drawing;
+using OpenTK;
 
 namespace pulse.Client.Graphics
 {
     class Quad : Renderable
     {
-        public Quad(float x, float y, float width, float height) : this(new PointF(x, y), new SizeF(width, height))
+        public Quad(float x, float y, float z, float width, float height) : this(new Vector3(x, y, z), new SizeF(width, height))
         {
+            
         }
 
-        public Quad(PointF location, SizeF size)
+        public Quad(Vector3 point, SizeF size)
         {
-            Location = location;
+            Origin = point;
             Size = size;
         }
     }

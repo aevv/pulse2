@@ -3,11 +3,12 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using pulse.Client.Audio;
+using pulse.Client.Graphics.Engine.Util;
 using pulse.Client.Graphics.Interface;
 
 namespace pulse.Client.Songs
 {
-    class MediaPlayer : IRenderable
+    class MediaPlayer
     {
         private static MediaPlayer _instance;
         private static object _sync = new object();
@@ -33,6 +34,7 @@ namespace pulse.Client.Songs
         public SizeF Size { get; set; }
         public float Rotation { get; set; }
         public Color4 Colour { get; set; }
+        public ShapeType Shape { get; set; }
         public float Depth { get; set; }
 
         public bool AutoPlay { get; set; }
@@ -84,11 +86,6 @@ namespace pulse.Client.Songs
 
             if (_currentSong != null)
                 _currentSong.Sound.Play();
-        }
-
-        public void OnRenderFrame(FrameEventArgs args)
-        {
-            throw new NotImplementedException();
         }
     }
 }

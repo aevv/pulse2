@@ -16,9 +16,9 @@ namespace pulse.Client.Screens
 
         public GameScreen(InputHandler inputHandler) : base(inputHandler)
         {
-            _quad = new Quad(0, 0, 1024, 768);
+            _quad = new Quad(0, 0, 0, 1024, 768);
             _quad.ApplyTexture("Assets\\bg.jpg");
-            _quad2 = new Quad(0, 0, 50, 50);
+            _quad2 = new Quad(0, 0, 0, 50, 50);
             _quad2.ApplyTexture(_quad.TextureId);
             Renderables.Add(_quad);
             Renderables.Add(_quad2);
@@ -33,15 +33,15 @@ namespace pulse.Client.Screens
         {
             base.OnUpdateFrame(args);
 
-            var x = _quad2.Location.X + (_velocity*args.Time);
-            var y = _quad2.Location.Y + (_velocity*args.Time);
+            var x = _quad2.Origin.X + (_velocity * args.Time);
+            var y = _quad2.Origin.Y + (_velocity*args.Time);
 
-            _quad2.Location = new PointF((float)x, (float)y);
+            _quad2.Origin = new Vector3((float)x, (float)y, _quad2.Origin.Z);
 
             if (x > Window.Width)
-                _quad2.Location = new PointF(0, _quad2.Location.Y);
+                _quad2.Origin = new Vector3(0, _quad2.Origin.Y, _quad2.Origin.Z);
             if (y > Window.Height)
-                _quad2.Location = new PointF(_quad2.Location.X, 0);
+                _quad2.Origin = new Vector3(_quad2.Origin.X, 0, _quad2.Origin.Z);
                 //_quad2.Location = new PointF(0, (Window.Height + _quad2.Location.Y + 50) % Window.Height);
         }
     }
