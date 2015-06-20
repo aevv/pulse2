@@ -9,13 +9,16 @@ namespace pulse.Client.Screens
 {
     class GameScreen : BaseScreen
     {
+        private readonly ScreenManager _manager;
         private Quad _quad;
         private Quad _quad2;
 
         private double _timeTotal = 0;
 
-        public GameScreen(InputHandler inputHandler) : base(inputHandler)
+        public GameScreen(ScreenManager manager, InputHandler inputHandler) : base(inputHandler)
         {
+            _manager = manager;
+
             _quad = new Quad(0, 0, 0, 1024, 768);
             _quad.ApplyTexture("Assets\\bg.jpg");
             _quad2 = new Quad(0, 0, 0, 50, 50);
@@ -23,7 +26,7 @@ namespace pulse.Client.Screens
             Renderables.Add(_quad);
             Renderables.Add(_quad2);
 
-            Name = "Game Screen";
+            Name = "GameScreen";
             Title = "pulse";
         }
 

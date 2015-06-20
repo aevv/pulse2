@@ -36,6 +36,14 @@ namespace pulse.Client.Logging
             }
         }
 
+        public void TraceInfo(object item)
+        {
+            lock (_sync)
+            {
+                _coreTrace.TraceInformation(item.ToString());
+            }
+        }
+
         public void TraceInfo(string message)
         {
             lock (_sync)

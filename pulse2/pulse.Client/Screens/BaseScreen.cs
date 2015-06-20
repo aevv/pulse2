@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using OpenTK;
 using OpenTK.Input;
 using pulse.Client.Graphics;
@@ -15,7 +18,7 @@ namespace pulse.Client.Screens
         private string _name;
         private string _title;
         private readonly List<IRenderable> _renderables;
-        private readonly List<IUpdateable> _updateables;
+        private readonly ConcurrentBag<IUpdateable> _updateables;
         private readonly InputHandler _inputHandler;
 
         protected IInputChecker InputChecker { get { return _inputHandler; }}
@@ -33,7 +36,7 @@ namespace pulse.Client.Screens
             get { return _renderables; }
         }
 
-        public List<IUpdateable> Updateables
+        public ConcurrentBag<IUpdateable> Updateables
         {
             get { return _updateables; }
         } 
@@ -41,15 +44,7 @@ namespace pulse.Client.Screens
         {
             _inputHandler = inputHandler;
             _renderables = new List<IRenderable>();
-            _updateables = new List<IUpdateable>();
-        }
-
-        public virtual void OnRenderFrame(FrameEventArgs args)
-        {
-            foreach (var renderable in _renderables)
-            {
-                //renderable.OnRenderFrame(args);
-            }
+            _updateables = new ConcurrentBag<IUpdateable>();
         }
 
         public virtual void OnUpdateFrame(UpdateFrameEventArgs args)
@@ -67,6 +62,26 @@ namespace pulse.Client.Screens
                     
                 }
             }
+        }
+
+        public void RegisterControl(object control)
+        {
+            try
+            {
+                Renderables.Add((IRenderable)control);
+                Updateables.Add((IUpdateable)control);
+            }
+            catch
+            {
+            }
+            var ordered = Renderables.OrderBy(r => r.Origin.Z).ToList();
+            Renderables.Clear();
+            Renderables.AddRange(ordered);
+        }
+
+        public void UnregisterControl(object control)
+        {
+            
         }
     }
 }

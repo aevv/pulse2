@@ -108,6 +108,11 @@
     <Compile Include="Screens\Forms\LoadingSplashForm.Designer.cs">
       <DependentUpon>LoadingSplashForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scripting\EngineWrapper.cs" />
+    <Compile Include="Scripting\Factories\BackgroundFactory.cs" />
+    <Compile Include="Scripting\Factories\ButtonFactory.cs" />
+    <Compile Include="Scripting\Factories\IFactory.cs" />
+    <Compile Include="Scripting\ScriptAssist.cs" />
     <Compile Include="Songs\Chart.cs" />
     <Compile Include="Songs\ChartGroup.cs" />
     <Compile Include="Songs\Mechanics\BookMark.cs" />
@@ -169,6 +174,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pulseicon.ico" />
+    <Content Include="Assets\Scripts\Screens\MenuScreen.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Graphics\Engine\Shaders\FragmentShader.glsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

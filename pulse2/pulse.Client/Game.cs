@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Reflection;
+using Jint;
+using Jint.Parser.Ast;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -10,6 +12,8 @@ using pulse.Client.Input;
 using pulse.Client.Input.Events;
 using pulse.Client.Logging;
 using pulse.Client.Screens;
+using pulse.Client.Scripting;
+using pulse.Client.Songs;
 
 namespace pulse.Client
 {
@@ -20,6 +24,7 @@ namespace pulse.Client
         private readonly InputHandler _inputHandler;
         private readonly LogTracer _trace;
         private readonly IRenderer _renderer;
+        private readonly EngineWrapper _jsEngine;
 
         public Game(PulseConfig config) : base(config.Width, config.Height, GraphicsMode.Default, "pulse",
             config.Fullscreen ? GameWindowFlags.Fullscreen : GameWindowFlags.Default)
@@ -28,8 +33,13 @@ namespace pulse.Client
             _trace.TraceInfo("pulse startup");
             _config = config;
 
-            _screenManager = ScreenManager.Resolve();
+            // TODO: Deal with triangle ref crap
+            _screenManager = new ScreenManager();
+            var pulseNamespace = new ScriptAssist(_trace, _inputHandler, _screenManager, _config, MediaPlayer.Instance, this);
+            _jsEngine = new EngineWrapper(pulseNamespace);
+            _screenManager.Engine = _jsEngine;
             _screenManager.TitleSetter = title => Title = title;
+
 
             _inputHandler = new InputHandler(this);
 
@@ -38,6 +48,12 @@ namespace pulse.Client
             Icon = DefaultAssets.PulseIcon;
 
             _renderer = new Renderer(new Size(Width, Height));
+        }
+
+        public void Quit()
+        {
+            // TODO: save, prompt, all that
+            Environment.Exit(0);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -79,8 +95,9 @@ namespace pulse.Client
 
         private void LoadScreens()
         {
-            _screenManager.Add(new GameScreen(_inputHandler));
-            _screenManager.Active = new MenuScreen(_inputHandler);
+            _screenManager.Add("GameScreen", new GameScreen(_screenManager, _inputHandler));
+            _screenManager.Add("MenuScreen", new MenuScreen(_screenManager, _inputHandler));
+            _screenManager.SetActive("MenuScreen");
         }
     }
 }

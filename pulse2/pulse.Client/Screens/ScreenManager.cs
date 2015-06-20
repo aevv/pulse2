@@ -1,47 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using pulse.Client.Scripting;
 
 namespace pulse.Client.Screens
 {
     class ScreenManager
     {
-        private static ScreenManager _instance;
+        private readonly IDictionary<string, BaseScreen> _screens;
+        private EngineWrapper _engine;
+        public EngineWrapper Engine { get { return _engine; } set { _engine = value; } }
+
         private Action<string> _titleSetter;
-        private readonly IList<BaseScreen> _screens;
         private BaseScreen _activeScreen;
 
         public Action<string> TitleSetter { set { _titleSetter = value; } }
 
-        public static ScreenManager Resolve()
+        public ScreenManager()
         {
-            return _instance ?? (_instance = new ScreenManager());
-        }
-
-        private ScreenManager()
-        {
-            _screens = new List<BaseScreen>();
+            _screens = new Dictionary<string, BaseScreen>();
         }
 
         public BaseScreen this[string name]
         {
-            get { return _screens.First(s => s.Name == name); }
+            get { return _screens[name]; }
         }
 
-        public void Add(BaseScreen screen)
+        public void Add(string name, BaseScreen screen)
         {
-            if (_screens.Contains(screen))
-                _screens.Remove(screen);
+            if (_screens.ContainsKey(name))
+                _screens.Remove(name);
             
-            _screens.Add(screen);
+            _screens.Add(name, screen);
+            LoadScreenFromScript(name, screen);
 
             if (_screens.Count == 1)
                 _activeScreen = screen;
         }
 
-        public void Remove(BaseScreen screen)
+        public void Remove(string name)
         {
-            _screens.Remove(screen);
+            _screens.Remove(name);
         }
 
         public BaseScreen Active
@@ -52,8 +53,11 @@ namespace pulse.Client.Screens
             }
             set
             {
-                if (!_screens.Contains(value))
-                    _screens.Add(value);
+                if (_screens.All(screen => screen.Value != value))
+                {
+                    _screens.Add(value.Name, value);
+                    LoadScreenFromScript(value.Name, value);
+                }
 
                 _activeScreen = value;
                 if (_titleSetter != null)
@@ -63,14 +67,25 @@ namespace pulse.Client.Screens
 
         public void SetActive(string name)
         {
-            var screen = _screens.FirstOrDefault(s => s.Name == name);
-
-            if (screen == null)
+            if (!_screens.ContainsKey(name))
                 return;
 
-            _activeScreen = screen;
+            _activeScreen = _screens[name];
             if (_titleSetter != null)
                 _titleSetter(_activeScreen.Title);
+        }
+
+        private void LoadScreenFromScript(string name, BaseScreen screen)
+        {
+            var fileName = string.Format("Assets\\Scripts\\Screens\\{0}.js", name);
+            if (!File.Exists(fileName))
+                return;
+
+            var script = File.ReadAllText(fileName);
+
+            _engine.SetScreen(screen);
+            _engine.ExecuteScript(script);
+            _engine.UnsetScreen();
         }
     }
 }

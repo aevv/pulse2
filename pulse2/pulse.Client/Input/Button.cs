@@ -14,7 +14,7 @@ namespace pulse.Client.Input
         private Action _clickEvent;
         private readonly RawText _text;
         public RectangleF Boundaries { get; set; }
-        public event ClickEventHandler OnClick;
+        public Action OnClick { get; set; }
         public Color4 TextColour { get { return _text.Colour; } set { _text.Colour = value; } }
         public RawText RawText { get { return _text; } }
         public Button(Vector3 point, SizeF size, string text)
