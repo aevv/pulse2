@@ -44,6 +44,7 @@ namespace pulse.Client.Scripting
             var dict = new Dictionary<string, IFactory>();
             dict.Add("button", new ButtonFactory());
             dict.Add("background", new BackgroundFactory());
+            dict.Add("animation", new AnimationFactory());
             return dict;
         }
     }

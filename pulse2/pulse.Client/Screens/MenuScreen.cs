@@ -14,27 +14,16 @@ namespace pulse.Client.Screens
 {
     class MenuScreen : BaseScreen
     {
-        private Animation _animTest;
         private ScreenManager _screenManager;
 
         public MenuScreen(ScreenManager manager, InputHandler inputHandler) : base(inputHandler)
         {
             _screenManager = manager;
 
-            _animTest = new Animation(new Vector3(200, 200, 10), new SizeF(300, 300));
-            _animTest.ApplyTextures(Enumerable.Range(0, 7).Select(i => string.Format("Assets/Burst/burst{0}.png", i)));
-            _animTest.Loop = true;
-            Renderables.Add(_animTest);
-            Updateables.Add(_animTest);
-
             Name = "MenuScreen";
             Title = "pulse - Menu";
 
             _screenManager = manager;
-
-            //TODO: Refactor this hack
-            var player = MediaPlayer.Instance;
-            player.PlayRandom();
         }
     }
 }

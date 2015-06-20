@@ -109,6 +109,7 @@
       <DependentUpon>LoadingSplashForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Scripting\EngineWrapper.cs" />
+    <Compile Include="Scripting\Factories\AnimationFactory.cs" />
     <Compile Include="Scripting\Factories\BackgroundFactory.cs" />
     <Compile Include="Scripting\Factories\ButtonFactory.cs" />
     <Compile Include="Scripting\Factories\IFactory.cs" />
